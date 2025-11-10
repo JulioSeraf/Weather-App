@@ -2,3 +2,33 @@ body{
     background: hsl(243, 96%, 9%);
     color: white;
 }
+body > *{
+    border: 1px solid white;
+}
+header{
+    width:100%;
+}
+i{
+    display: inline-block;
+}
+header #units-but{
+    display: flex;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 10%;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    background: hsl(240, 6%, 70%);
+}
+#units-but > *{
+    /* margin: 0 10px; */
+}
+header > *{
+    border: 1px solid white;
+}
+
+header > nav{
+    display: none;
+}
