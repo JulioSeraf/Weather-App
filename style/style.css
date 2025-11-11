@@ -101,6 +101,7 @@ main{
     margin: auto;
     margin-top: 20px;
     width: 80%;
+    max-width: 350px;
 }
 .temp-info > img{
     display: inline-block;
