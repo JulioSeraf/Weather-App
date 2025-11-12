@@ -1,20 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style/reset.css">
+  <link rel="stylesheet" href="style/style.css">
+  <title>Frontend Mentor | Weather app</title>
+
 </head>
+
 <body>
-    <header>
-        
-    </header>
-    <main>
-
-    </main>
-    <aside></aside>
-    <footer>
-
-    </footer>
+  <header>
+    <i><img src="assets/images/logo.svg" alt="logo"></i>
+    <button id="units-but">
+      <img src="assets/images/icon-units.svg" alt="">
+      <p>Units</p>
+      <img src="assets/images/icon-dropdown.svg" alt="">
+    </button>
+    <nav>
+      <button>
+        Switch to Imperial/Metric
+      </button>
+      <div>
+        <p>Temperature</p>
+        <button>Celsius (°C)</button>
+        <button>Fahrenheit (°F)</button>
+      </div>
+      <div>
+        <p> Wind Speed</p>
+        <button>
+          km/h
+        </button>
+        <button>
+          mph
+        </button>
+      </div>
+      <div>
+        <p>Precipitation</p>
+        <button>Millimeters (mm)</button>
+        <button>Inches (in)</button>
+      </div>
+    </nav>
+    <h1>
+      How's the <br> sky looking <br> today?
+    </h1>
+  </header>
+  <nav id="search-box">
+    <form action="search">
+      <input type="search" placeholder="Search for a place...">
+      <button>Search</button>
+    </form>
+  </nav>
+  <main>
+    <section id="painel-box">
+      <div class="painel-info">
+        <h3 id="name-city-h3">Berlin, Germany</h3>
+        <p id="week-p">Tuesday, Aug 5, 2005</p>
+        <div class="temp-info">
+          <img src="assets/images/icon-sunny.webp" alt="sunny">
+          <p>68º</p>
+        </div>
+      </div>
+      <img class="fundo-p" src="assets/images/bg-today-small.svg" alt="fundo imagem">
+    </section>
+    <section id="info-box">
+      <div id="feels">
+        <p>Feels Like</p>
+        <p>00</p>
+      </div>
+      <div id="humidity">
+        <p>Humidity</p>
+        <p>00</p>
+      </div>
+      <div id="wind">
+        <p>Wind</p>
+        <p>00</p>
+      </div>
+      <div id="precipitation">
+        <p>Precipitation</p>
+        <p>00</p>
+      </div>
+    </section>
+    <section id="daily-box">
+      <h3>
+        Daily forecast
+      </h3>
+      <div class="div-daily">
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+         <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+        <div class="week-days-info">
+          <p>Tue</p>
+          <img src="assets/images/icon-drizzle.webp" alt="">
+          <p class="day-max">67</p>
+          <p class="day-min">88</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <aside>
+    <h3>Hourly forecast</h3>
+  </aside>
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="https://github.com/JulioSeraf">Julio Serafim</a>.
+  </footer>
+  <script src="js/script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,63 @@
+/* === Reset CSS moderno === */
+/* Elimina márgenes, paddings y asegura consistencia entre navegadores */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elimina estilos por defecto de texto */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Asegura que las imágenes y videos sean responsivos */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Hereda la tipografía en formularios */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Elimina decoraciones de enlaces */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Quita listas por defecto */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Define altura mínima del body para layouts flexibles */
+html, body {
+  height: 100%;
+}
+
+/* Evita desbordamientos horizontales no deseados */
+body {
+  overflow-x: hidden;
+  background-color: #fff; /* opcional: define fondo base */
+}
+/* Asegura que los encabezados no tengan márgenes sorpresa */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
