@@ -116,8 +116,12 @@ header h1 {
     background: hsl(243, 23%, 30%);
 
 }
-
-#search-box button {
+#search-opt{
+    display: flex;
+    flex-direction: column;
+    background: hsl(243, 23%, 30%);
+}
+#search-box #search-but {
     background: hsl(233, 67%, 56%);
 }
 
