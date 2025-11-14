@@ -11,6 +11,7 @@ let latitude, logitud;
 let temperature;
 let windSpeed;
 let precipitation;
+let nowHour = new Date().getHours();
 
 function setCitys(cityEl,citys) {
   
@@ -81,14 +82,17 @@ window.addEventListener("click", (e) => {
    }
    city.forEach(el => {
       if(e.target.id == el.name){
-         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&current=precipitation,temperature_2m,relative_humidity_2m,wind_speed_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`).then(res => res.json()).then(json => {
-               console.log(json)
+         // cambiar la peticion para horaria
+         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,wind_speed_10m,precipitation`).then(res => res.json()).then(json => {
+            let hours = json.hourly.time;  
+            
+            
+            console.log(json)
+               // if(nowHour == )
           })
         }
    })
-   
 })
-
 
 
 
