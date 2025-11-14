@@ -5,49 +5,80 @@ const navImMe = d.getElementById('nav-imp-met');
 const templeteCitys = d.getElementById('search-citys').content;
 const fragment = d.createDocumentFragment();
 const search = d.querySelector("#search-opt");
+const searchInput = d.getElementById('search-input');
 console.log(search)
 let latitude, logitud;
 let temperature;
 let windSpeed;
 let precipitation;
-const city = [
-     {
-        name:'Sevilla',
-        lat:37.3828,
-        long:-5.9732
-     },
-     {
-        name:'Cadiz',
-        lat:36.5267,
-        long:36.5267
-     },
-     {
-        name:'Malaga',
-        lat:36.7202,
-        long:-4.4203
-     },
-     {
-        name:'Madrid',
-        lat:40.4165,
-        long:40.4165
-     }
-    ]
-window.addEventListener("click",(e)=>{
-     e.preventDefault();
-    if(e.target.matches("#units-but *")){
-        navImMe.classList.toggle("onDisplay");
-    }
-    if(e.target.matches("#search-but")){
-       city.forEach( e =>{
-        templeteCitys.querySelector("button").textContent = e.name;
-        templeteCitys.set
-        let clone = d.importNode(templeteCitys, true);
-        fragment.appendChild(clone);
-       })
 
-       search.appendChild(fragment);
-       
-    }
+function setCitys(cityEl) {
+
+}
+const city = [
+   {
+      name: 'Sevilla',
+      lat: 37.3828,
+      long: -5.9732
+   },
+   {
+      name: 'Cadiz',
+      lat: 36.5267,
+      long: 36.5267
+   },
+   {
+      name: 'Malaga',
+      lat: 36.7202,
+      long: -4.4203
+   },
+   {
+      name: 'Madrid',
+      lat: 40.4165,
+      long: 40.4165
+   }
+]
+
+window.addEventListener("click", (e) => {
+   e.preventDefault();
+
+   if (e.target.matches("#units-but *")) {
+      navImMe.classList.toggle("onDisplay");
+   }
+
+   if (e.target.matches("#search-input")) {
+      search.classList.add("onDisplay");
+      while (search.querySelectorAll("button").length == 0) {
+         city.forEach(e => {
+            templeteCitys.querySelector("button").textContent = e.name;
+            let clone = d.importNode(templeteCitys, true);
+            fragment.appendChild(clone);
+         })
+         search.appendChild(fragment);
+      }
+   }
+   if (!e.target.matches("#search-input")) {
+      search.classList.remove("onDisplay");
+      search.replaceChildren();
+   }
+
+
+})
+searchInput.addEventListener("keydown", (e) => {
+   if (e.target.value != "") {
+      let valueSearch = e.target.value;
+      search.replaceChildren();
+      city.forEach(e => {
+         if (e.name.toLowerCase().includes(valueSearch.toLowerCase())) {
+            templeteCitys.querySelector("button").textContent = e.name;
+            let clone = d.importNode(templeteCitys, true);
+            fragment.appendChild(clone);
+         }
+      })
+      search.appendChild(fragment);
+   }
+    
+   
+
 })
 //fetch("https://api.open-meteo.com/v1/forecast?latitude=40&longitude=-4&hourly=temperature_2m,wind_speed_10m,temperature_80m,wind_direction_10m,relative_humidity_2m,apparent_temperature&timezone=Europe%2FBerlin&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch&bounding_box=-90,-180,90,180")
 // .then(res => res.json()).then(res => {

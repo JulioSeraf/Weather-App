@@ -55,9 +55,6 @@ header>nav {
     background-color: hsl(243, 23%, 30%);
     z-index: 2;
 }
-.onDisplay{
-    display: flex;
-}
 header> nav > *{
     display: flex;
     flex-direction: column;
@@ -99,6 +96,7 @@ header h1 {
 }
 
 #search-box form {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -116,10 +114,22 @@ header h1 {
     background: hsl(243, 23%, 30%);
 
 }
-#search-opt{
-    display: flex;
+
+.search-opt{
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 100%;
     flex-direction: column;
     background: hsl(243, 23%, 30%);
+    z-index: 1;
+    height:300px;
+    overflow: scroll;
+}
+.search-opt button{
+    background-color:hsl(243, 23%, 30%) ;
+    border-radius: 10px;
+    padding: 5px;
 }
 #search-box #search-but {
     background: hsl(233, 67%, 56%);
@@ -228,4 +238,8 @@ aside {
 
 footer {
     height: 3vh;
+}
+
+.onDisplay{
+    display: flex;
 }
