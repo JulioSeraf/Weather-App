@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-:root{
+
+:root {
     --bordeColor: hsla(240, 18%, 48%, 0.765);
 }
 
@@ -13,10 +14,12 @@ body {
     font-family: "DM Sans", sans-serif;
 
 }
-body > *{
+
+body>* {
     width: 95%;
-  margin: auto; 
+    margin: auto;
 }
+
 header {
     min-height: 250px;
     height: 30vh;
@@ -55,12 +58,14 @@ header>nav {
     background-color: hsl(243, 23%, 30%);
     z-index: 2;
 }
-header> nav > *{
+
+header>nav>* {
     display: flex;
     flex-direction: column;
     padding: 5px;
 }
-header>nav button{
+
+header>nav button {
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
     border: none;
@@ -68,17 +73,20 @@ header>nav button{
     padding: 5px;
     text-align: left;
 }
-header>nav button:hover{
-    background-color:var(--bordeColor);
+
+header>nav button:hover {
+    background-color: var(--bordeColor);
 }
-header nav div{
+
+header nav div {
     border-bottom: 1px solid var(--bordeColor);
 }
 
-header nav div p{
+header nav div p {
     color: hsl(240, 6%, 70%);
     font-size: 0.9em;
 }
+
 header h1 {
     font-size: 3rem;
     width: 80%;
@@ -115,7 +123,7 @@ header h1 {
 
 }
 
-.search-opt{
+.search-opt {
     display: none;
     position: absolute;
     top: 50%;
@@ -123,14 +131,17 @@ header h1 {
     flex-direction: column;
     background: hsl(243, 23%, 30%);
     z-index: 1;
-    height:300px;
+    min-height: 100px;
+    max-height: 300px;
     overflow: scroll;
 }
-.search-opt button{
-    background-color:hsl(243, 23%, 30%) ;
+
+.search-opt button {
+    background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
     padding: 5px;
 }
+
 #search-box #search-but {
     background: hsl(233, 67%, 56%);
 }
@@ -146,13 +157,15 @@ main {
 #painel-box {
     position: relative;
     width: 100%;
+    left: 50%;
+    transform: translate(-50%);
     min-width: 375px;
     height: 100%;
     margin: 5px auto;
 }
 
 #painel-box>.fundo-p {
-    width: 92%;
+    width: 90%;
     max-width: 375px;
     margin: auto;
 
@@ -160,12 +173,11 @@ main {
 
 #painel-box>.painel-info {
     position: absolute;
-    width: 100%;
+    width: 90%;
     top: 30px;
-    left: 50%;
-    transform: translate(-50%);
     text-align: center;
 }
+
 .painel-info h3 {
     font-size: 1.5em;
     /* font: ; */
@@ -240,6 +252,6 @@ footer {
     height: 3vh;
 }
 
-.onDisplay{
+.onDisplay {
     display: flex;
 }
