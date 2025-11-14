@@ -12,27 +12,8 @@ let temperature;
 let windSpeed;
 let precipitation;
 
-
-
-
-
-
-
-
-
-
-function setCitys(cityId,citys) {
-   citys.forEach(el => {
-      if(cityId == el.name){
-         fetch(`https://api.open-meteo.com/v1/forecast?
-              latitude=${el.lat}&longitude=${el.long}&current=precipitation,
-               temperature_2m,relative_humidity_2m,wind_speed_10m&
-               wind_speed_unit=mph&temperature_unit=fahrenheit&
-               precipitation_unit=inch`).then(res => res.json()).then(json => {
-               console.log(json)
-          })
-        }
-   })
+function setCitys(cityEl,citys) {
+  
 }
 const city = [
    {
@@ -98,36 +79,16 @@ window.addEventListener("click", (e) => {
             search.classList.add("onDisplay");
          }
    }
-
-   // setCitys(e.target, city);
-   let info = setCitys(e.target.id, city);
-   console.log(info)
+   city.forEach(el => {
+      if(e.target.id == el.name){
+         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&current=precipitation,temperature_2m,relative_humidity_2m,wind_speed_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`).then(res => res.json()).then(json => {
+               console.log(json)
+          })
+        }
+   })
+   
 })
 
-
-// sea.addEventListener("keydown", (e) => {
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-      
-// })
-
-
-
-
-  
-  
-//
 
 
 
