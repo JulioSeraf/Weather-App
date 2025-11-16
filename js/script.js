@@ -15,28 +15,43 @@ let temperature = null,
    hours = null;
 let todayHrs = new Date().getHours();
 let todayDay = new Date().getDate();
+
 async function getCity(el) {
    try {
-      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,wind_speed_10m,precipitation`);
+      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,wind_speed_10m,precipitation&hourly=weather_code`);
       let json = await res.json();
-
+      console.log(json)
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.lon}&localityLanguage=es`);
       
       let hereCity = await resCity.json();
 
-      console.log(hereCity)
       let datos = {
          hereLocation:hereCity.city +", "+ hereCity.countryName,
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
-         windS: json.hourly.wind_speed_10m
+         windS: json.hourly.wind_speed_10m,
+         cod : json.weather_code
       }
 
       return datos;
    } catch (er) {
       console.error("Error de peticion " + er);
    }
+}
+
+function getIconImg(){
+   /*  assets/images/icon-sunny.webp 0
+    assets/images/icon-storm.webp 85,86
+     assets/images/icon-snow.webp 71
+      assets/images/icon-rain.webp
+       assets/images/icon-parlty-cloudy.webp 2
+        assets/images/icon-overcast.webp 3
+         assets/images/icon-fog.webp 45,48
+          assets/images/icon-drizzle.webp 51,53,55
+   */
+   
+
 }
 
 
