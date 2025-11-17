@@ -8,6 +8,12 @@ const painelInfo = d.querySelector(".painel-info");
 const fragment = d.createDocumentFragment();
 const search = d.querySelector("#search-opt");
 const searchInput = d.getElementById('search-input');
+const feelsLikeP = d.getElementById("feels");
+const humidityP= d.getElementById("humidity");
+const windP = d.getElementById("wind");
+const precP = d.getElementById("precipitation");
+
+// console.log(feelsLike)
 let latitude, logitud;
 let temperature = null,
    windSpeed = null,
@@ -18,7 +24,7 @@ let todayDay = new Date().getDate();
 
 async function getCity(el) {
    try {
-      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,wind_speed_10m,precipitation&hourly=weather_code`);
+      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
       let json = await res.json();
       console.log(json)
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.lon}&localityLanguage=es`);
@@ -31,7 +37,9 @@ async function getCity(el) {
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
          windS: json.hourly.wind_speed_10m,
-         cod: json.hourly.weather_code
+         cod: json.hourly.weather_code,
+         feelsL :json.hourly.apparent_temperature,
+         humity: json.hourly.relative_humidity_2m
       }
 
       return datos;
@@ -46,7 +54,7 @@ function getIconImg(valor){
    switch(true){
       case valor == 0: temp ='assets/images/icon-sunny.webp';
       break;
-      case valor == 1 || valor == 2: temp ='assets/images/icon-parlty-cloudy.webp';
+      case valor == 1 || valor == 2: temp ='assets/images/icon-partly-cloudy.webp';
       break;
       case valor ==3: temp = 'assets/images/icon-overcast.webp';
       break;
@@ -156,7 +164,10 @@ window.addEventListener("load", (e) => {
             templetePainel.querySelector("img").src = getIconImg(datos.cod[i]);
             templetePainel.querySelector("#painel-temp").textContent = datos.temp[i]+ "º";
             painelInfo.appendChild(templetePainel);
-
+            feelsLikeP.textContent = datos.feelsL[i];
+            humidityP.textContent = datos.humity[i];
+            precP.textContent = datos.prec[i];
+            windP.textContent = datos.windS[i];
          }
       }
 
