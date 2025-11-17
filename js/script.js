@@ -31,7 +31,7 @@ async function getCity(el) {
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
          windS: json.hourly.wind_speed_10m,
-         cod : json.weather_code
+         cod: json.hourly.weather_code
       }
 
       return datos;
@@ -40,18 +40,29 @@ async function getCity(el) {
    }
 }
 
-function getIconImg(){
-   /*  assets/images/icon-sunny.webp 0
-    assets/images/icon-storm.webp 85,86
-     assets/images/icon-snow.webp 71
-      assets/images/icon-rain.webp
-       assets/images/icon-parlty-cloudy.webp 2
-        assets/images/icon-overcast.webp 3
-         assets/images/icon-fog.webp 45,48
-          assets/images/icon-drizzle.webp 51,53,55
-   */
+function getIconImg(valor){
    
-
+   let temp = "";
+   switch(true){
+      case valor == 0: temp ='assets/images/icon-sunny.webp';
+      break;
+      case valor == 1 || valor == 2: temp ='assets/images/icon-parlty-cloudy.webp';
+      break;
+      case valor ==3: temp = 'assets/images/icon-overcast.webp';
+      break;
+      case valor == 45 || valor == 46 : temp = 'assets/images/icon-fog.webp';
+      break;
+      case (valor >= 51 && valor <= 57): temp = 'assets/images/icon-drizzle.webp';
+      break;
+      case ((valor >= 61 && valor <= 67) || valor >=80 && valor <= 82 ): temp = 'assets/images/icon-rain.webp';
+      break;
+      case (valor >= 71 && valor <= 77) || valor == 85 || valor == 86 : temp = 'assets/images/icon-snow.webp';
+      break;
+      case valor >=95 && valor <= 99: temp = 'assets/images/icon-storm.webp';
+      break; 
+      default: "imagen no found!!"
+   }
+   return temp;
 }
 
 
@@ -149,10 +160,10 @@ window.addEventListener("load", (e) => {
 
       for (let i = 0; i < datos.time.length; i++) {
          if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
-            console.log(i);
+            console.log(datos.cod[i]);
             templetePainel.querySelector("#painel-city").textContent = datos.hereLocation;
             templetePainel.querySelector("#painel-week").textContent = "Tuedary";
-            templetePainel.querySelector("img").src = "#";
+            templetePainel.querySelector("img").src = getIconImg(datos.cod[i]);
             templetePainel.querySelector("#painel-temp").textContent = datos.temp[i]+ "º";
             painelInfo.appendChild(templetePainel);
 
