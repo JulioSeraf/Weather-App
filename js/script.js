@@ -11,7 +11,8 @@ let latitude, logitud;
 let temperature;
 let windSpeed;
 let precipitation;
-let nowHour = new Date().getHours();
+let nowHour = new Date().getUTCHours();
+console.log(nowHour);
 
 function setCitys(cityEl,citys) {
   
