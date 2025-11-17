@@ -3,16 +3,22 @@ const unitsBut = d.getElementById('units-but');
 const formSearch = d.getElementById('search');
 const navImMe = d.getElementById('nav-imp-met');
 const templeteCitys = d.getElementById('search-citys').content;
+const templetePainel = d.getElementById("tem-painel").content;
+const painelInfo = d.querySelector(".painel-info");
 const fragment = d.createDocumentFragment();
 const search = d.querySelector("#search-opt");
 const searchInput = d.getElementById('search-input');
-console.log(search)
+const feelsLikeP = d.getElementById("feels");
+const humidityP = d.getElementById("humidity");
+const windP = d.getElementById("wind");
+const precP = d.getElementById("precipitation");
+
+// console.log(feelsLike)
 let latitude, logitud;
 let temperature;
 let windSpeed;
 let precipitation;
-let nowHour = new Date().getUTCHours();
-console.log(nowHour);
+let nowHour = new Date().getHours();
 
 function setCitys(cityEl,citys) {
   
@@ -20,8 +26,8 @@ function setCitys(cityEl,citys) {
 const city = [
    {
       name: 'Sevilla',
-      lat:37.3828,
-      long:-5.9732
+      lat: 37.3828,
+      long: -5.9732
    },
    {
       name: 'Cadiz',
@@ -48,52 +54,71 @@ window.addEventListener("click", (e) => {
    }
 
    // if (e.target.matches("#search-input")) {
-      // search.classList.add("onDisplay");
-      // while (search.querySelectorAll("button").length == 0) {
-         // city.forEach(e => {
-            // templeteCitys.querySelector("button").textContent = e.name;
-            // templeteCitys.querySelector('button').id = e.name;
-            // let clone = d.importNode(templeteCitys, true);
-            // fragment.appendChild(clone);
-         // })
-         // search.appendChild(fragment);
-      // }
+   // search.classList.add("onDisplay");
+   // while (search.querySelectorAll("button").length == 0) {
+   // city.forEach(e => {
+   // templeteCitys.querySelector("button").textContent = e.name;
+   // templeteCitys.querySelector('button').id = e.name;
+   // let clone = d.importNode(templeteCitys, true);
+   // fragment.appendChild(clone);
+   // })
+   // search.appendChild(fragment);
+   // }
    // }
    if (!e.target.matches("#search-but")) {
       search.classList.remove("onDisplay");
       search.replaceChildren();
    }
 
+
    if (e.target.matches("#search-but")) {
       console.log(searchInput.value)
       let valueSearch = searchInput.value;
-   // search.replaceChildren();
-       if(searchInput.value != ""){
+      // search.replaceChildren();
+      if (searchInput.value != "") {
          city.forEach(e => {
             if (e.name.toLowerCase().includes(valueSearch.toLowerCase())) {
-                templeteCitys.querySelector("button").textContent = e.name;
-                templeteCitys.querySelector("button").id = e.name;
-                let clone = d.importNode(templeteCitys, true);
-                fragment.appendChild(clone);
-               }
-             })
-            search.appendChild(fragment);
-            search.classList.add("onDisplay");
-         }
+               templeteCitys.querySelector("button").textContent = e.name;
+               templeteCitys.querySelector("button").id = e.name;
+               let clone = d.importNode(templeteCitys, true);
+               fragment.appendChild(clone);
+            }
+         })
+         search.appendChild(fragment);
+         search.classList.add("onDisplay");
+      }
+
    }
    city.forEach(el => {
-      if(e.target.id == el.name){
-         // cambiar la peticion para horaria
-         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,wind_speed_10m,precipitation`).then(res => res.json()).then(json => {
-            let hours = json.hourly.time;  
-            
-            
-            console.log(json)
-               // if(nowHour == )
-          })
-        }
+      if (e.target.id == el.name) {
+           getCity({ lat: el  , long: el.long }).then(datos => {
+
+              setPainelFeelsLike(datos);
+              console.log(datos)
+           })
+         
+
+
+      }
    })
 })
+
+window.addEventListener("load", (e) => {
+   navigator.geolocation.getCurrentPosition(async (position) => {
+      let lat = position.coords.latitude;
+      let long = position.coords.longitude;
+       let datos = await getCity({ lat: lat, long: long });
+      console.log(logitud, latitude)
+      setPainelFeelsLike(datos);
+
+   }, (error) => {
+      alert("Este Browser no aporta localiacion el App!! Error: " + error);
+   })
+})
+
+
+
+
 
 
 

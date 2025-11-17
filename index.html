@@ -63,31 +63,39 @@
   <main>
     <section id="painel-box">
       <div class="painel-info">
-        <h3 id="name-city-h3">Berlin, Germany</h3>
+        <template id="tem-painel">
+          <h3 id="painel-city"></h3>
+        <p id="painel-week"></p>
+        <div class="temp-info">
+          <img id="painel-img" src="" alt="">
+          <p id="painel-temp"></p>
+        </div>
+        </template>
+        <!-- <h3 id="name-city-h3">Berlin, Germany</h3>
         <p id="week-p">Tuesday, Aug 5, 2005</p>
         <div class="temp-info">
           <img src="assets/images/icon-sunny.webp" alt="sunny">
           <p>68º</p>
-        </div>
+        </div> -->
       </div>
       <img class="fundo-p" src="assets/images/bg-today-small.svg" alt="fundo imagem">
     </section>
     <section id="info-box">
-      <div id="feels">
+      <div>
         <p>Feels Like</p>
-        <p>00</p>
+        <p id="feels">00</p>
       </div>
-      <div id="humidity">
+      <div >
         <p>Humidity</p>
-        <p>00</p>
+        <p id="humidity">00</p>
       </div>
-      <div id="wind">
+      <div >
         <p>Wind</p>
-        <p>00</p>
+        <p id="wind">00</p>
       </div>
-      <div id="precipitation">
+      <div >
         <p>Precipitation</p>
-        <p>00</p>
+        <p id="precipitation">00</p>
       </div>
     </section>
     <section id="daily-box">
@@ -95,6 +103,15 @@
         Daily forecast
       </h3>
       <div class="div-daily">
+        <template>
+          <div class="week-days-info">
+            <p id="siglas-semanal">
+            </p>
+            <img src="#" alt="#">
+            <p class="day-max"></p>
+            <p class="day-min"></p>
+          </div>
+        </template>
         <div class="week-days-info">
           <p>Tue</p>
           <img src="assets/images/icon-drizzle.webp" alt="">
