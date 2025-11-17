@@ -12,7 +12,6 @@ const feelsLikeP = d.getElementById("feels");
 const humidityP = d.getElementById("humidity");
 const windP = d.getElementById("wind");
 const precP = d.getElementById("precipitation");
-
 // console.log(feelsLike)
 let latitude, logitud;
 let temperature = null,
@@ -21,7 +20,6 @@ let temperature = null,
    hours = null;
 let todayHrs = new Date().getHours();
 let todayDay = new Date().getDate();
-
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
@@ -39,9 +37,6 @@ async function getCity(el) {
       let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
       let json = await res.json();
 
-
-      console.log(el);
-
       let datos = {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
@@ -58,13 +53,12 @@ async function getCity(el) {
    }
 }
 
-async function setPainelFeelsLike(res, nameCity) {
-   let datos = await res;
+async function setPainelFeelsLike(datos, nameCity) {
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
          // setPainelFeelsLike(datos, i);
          console.log(nameCity)
-         templetePainel.querySelector("#painel-city").innerText = nameCity;
+         templetePainel.querySelector("#painel-city").textContent = nameCity;
          templetePainel.querySelector("#painel-week").textContent = "Tuedary";
          templetePainel.querySelector("img").src = getIconImg(datos.cod[i]);
          templetePainel.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
@@ -126,18 +120,6 @@ const city = [
       long: 40.4165
    }
 ]
-navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let long = position.coords.longitude;
-      let name ="";
-      getCity({ lat: lat, long: long }).then(res => {
-      getNameCity({lat: lat,long: long}).then(name => { setPainelFeelsLike(res,name);});
-       
-      })
-     
-   }, (error) => {
-      alert("Este Browser no aporta localiacion el App!! Error: " + error);
-   });
 
 document.addEventListener("click", (e) => {
    e.preventDefault();
@@ -182,6 +164,7 @@ document.addEventListener("click", (e) => {
       }
 
    }
+   
    city.forEach(el => {
       if (e.target.id == el.name) {
         getCity({lat: el.lat, long: el.long}).then(res => {
@@ -192,7 +175,25 @@ document.addEventListener("click", (e) => {
 })
 
 window.addEventListener("DOMContentLoaded", (e) => {
-   
+   navigator.geolocation.getCurrentPosition(async(position) => {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      const cord = {
+         lat: lat,
+         long: long
+      }
+      try{
+         const res = await getCity(cord);
+         const name = await getNameCity(cord);
+         setPainelFeelsLike(res,name);
+      }catch(err){
+         console.error(err);
+      }
+     
+   }, (error) => {
+      alert("Este Browser no aporta localiacion el App!! Error: " + error);
+   });
+
 })
 
 
