@@ -190,6 +190,7 @@ main {
 }
 
 .temp-info {
+    /* border: 1px solid white; */
     display: flex;
     justify-content: space-around;
     margin: auto;
@@ -198,11 +199,15 @@ main {
 }
 
 .temp-info>img {
+    /* border: 1px solid white; */
+
     display: inline;
     width: 45%;
 }
 
 .temp-info>p {
+    /* border: 1px solid white; */
+    padding-top: 15px;
     font-size: 5em;
     display: inline-block;
     font-weight: 500;

@@ -68,10 +68,6 @@ function getIconImg(valor){
 
 const city = [
    {
-      city: "uu",
-      country: "hereCity"
-   },
-   {
       name: 'Sevilla',
       lat: 37.3828,
       long: -5.9732
@@ -140,12 +136,6 @@ window.addEventListener("click", (e) => {
       if (e.target.id == el.name) {
          getCity(el).then(json => {
             console.log(json)
-
-            let hours24 = 0;
-            console.log(
-               hours[1].slice(8, 10))
-
-
          })
       }
    })
