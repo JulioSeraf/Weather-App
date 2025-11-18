@@ -232,7 +232,7 @@ main {
 /* Aside========================= */
 #daily-box {
     height: 50vh;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
 .div-daily {

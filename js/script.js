@@ -3,7 +3,7 @@ const unitsBut = d.getElementById('units-but');
 const formSearch = d.getElementById('search');
 const navImMe = d.getElementById('nav-imp-met');
 const templeteCitys = d.getElementById('search-citys').content;
-const templetePainel = d.getElementById("tem-painel").content;
+// const painel = d.getElementById("tem-ppainelInfot;
 const painelInfo = d.querySelector(".painel-info");
 const fragment = d.createDocumentFragment();
 const search = d.querySelector("#search-opt");
@@ -20,16 +20,18 @@ let temperature = null,
    hours = null;
 let todayHrs = new Date().getHours();
 let todayDay = new Date().getDate();
+
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
       let hereCity = await resCity.json();
-      
-      let city =  hereCity.city + ',' + hereCity.countryName
+
+      let city = hereCity.city + ',' + hereCity.countryName
       return city;
-   }catch(err) {
-      console.error(err)
-}}
+   } catch (err) {
+      console.error("Error de peticion " + er);
+   }
+}
 
 
 async function getCity(el) {
@@ -53,22 +55,24 @@ async function getCity(el) {
    }
 }
 
-async function setPainelFeelsLike(datos, nameCity) {
+function setPainelFeelsLike(datos, nameCity) {
+
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
          // setPainelFeelsLike(datos, i);
          console.log(nameCity)
-         templetePainel.querySelector("#painel-city").textContent = nameCity;
-         templetePainel.querySelector("#painel-week").textContent = "Tuedary";
-         templetePainel.querySelector("img").src = getIconImg(datos.cod[i]);
-         templetePainel.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
-         painelInfo.appendChild(templetePainel);
+         painelInfo.querySelector("#painel-city").textContent = nameCity;
+         painelInfo.querySelector("#painel-week").textContent = "Tuedary";
+         painelInfo.querySelector("img").src = getIconImg(datos.cod[i]);
+         painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
          feelsLikeP.textContent = datos.feelsL[i];
          humidityP.textContent = datos.humity[i];
          precP.textContent = datos.prec[i];
          windP.textContent = datos.windS[i];
+
       }
    }
+        painelInfo.appendChild(templetePainel);
 
 }
 
@@ -128,18 +132,6 @@ document.addEventListener("click", (e) => {
       navImMe.classList.toggle("onDisplay");
    }
 
-   // if (e.target.matches("#search-input")) {
-   // search.classList.add("onDisplay");
-   // while (search.querySelectorAll("button").length == 0) {
-   // city.forEach(e => {
-   // templeteCitys.querySelector("button").textContent = e.name;
-   // templeteCitys.querySelector('button').id = e.name;
-   // let clone = d.importNode(templeteCitys, true);
-   // fragment.appendChild(clone);
-   // })
-   // search.appendChild(fragment);
-   // }
-   // }
    if (!e.target.matches("#search-but")) {
       search.classList.remove("onDisplay");
       search.replaceChildren();
@@ -164,32 +156,32 @@ document.addEventListener("click", (e) => {
       }
 
    }
-   
+
    city.forEach(el => {
       if (e.target.id == el.name) {
-        getCity({lat: el.lat, long: el.long}).then(res => {
+         getCity({ lat: el.lat, long: el.long }).then(res => {
             setPainelFeelsLike(res, el.name);
-        })
+         })
       }
    })
 })
 
 window.addEventListener("DOMContentLoaded", (e) => {
-   navigator.geolocation.getCurrentPosition(async(position) => {
+   navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
       const long = position.coords.longitude;
       const cord = {
          lat: lat,
          long: long
       }
-      try{
+      try {
          const res = await getCity(cord);
          const name = await getNameCity(cord);
-         setPainelFeelsLike(res,name);
-      }catch(err){
+         setPainelFeelsLike(res, name);
+      } catch (err) {
          console.error(err);
       }
-     
+
    }, (error) => {
       alert("Este Browser no aporta localiacion el App!! Error: " + error);
    });
