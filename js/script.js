@@ -110,15 +110,13 @@ function getDayWeek(datos, day) {
          days: []
       }
    ];
-  
-  let firstDays = semana.slice(day, semana.length)
+  let ordenSemana = [];
+//   let firstDays = semana.slice(day, semana.length)
   let lastDays =  semana.splice(day, semana.length)
-  semana.concat(firstDays,lastDays);
+//  semana.concat(firstDays,lastDays);
   console.log(semana);
    for(let e = 0; e < semana.length; e++){
-      if(semana[e] == day){
-         semana.splice(day)
-      }
+     
    }
 
    for (let t = 0; t < datos.length; t++) {
