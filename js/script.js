@@ -20,6 +20,8 @@ let temperature = null,
    hours = null;
 let todayHrs = new Date().getHours();
 let todayDay = new Date().getDate();
+const todayWeek = new Date().getDay();
+console.log(todayWeek)
 
 async function getNameCity(el) {
    try {
@@ -34,11 +36,11 @@ async function getNameCity(el) {
 }
 
 
-async function getCity(el) {
+async function getCityDatos(el) {
    try {
       let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
       let json = await res.json();
-
+      console.log(json)
       let datos = {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
@@ -57,6 +59,7 @@ async function getCity(el) {
 
 function setPainelFeelsLike(datos, nameCity) {
 
+
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
          // setPainelFeelsLike(datos, i);
@@ -72,8 +75,65 @@ function setPainelFeelsLike(datos, nameCity) {
 
       }
    }
-        painelInfo.appendChild(templetePainel);
 
+}
+function getDayWeek(datos, day) {
+   let conDay = 0;
+   let semana = [
+      {
+         0: "Monday",
+         days: []
+
+      },
+      {
+         1: "Tuesday",
+         days: []
+      },
+      {
+         2: "Wednesday",
+         days: []
+      },
+      {
+         3: "Thursday",
+         days: []
+      },
+      {
+         4: "Friday",
+         days: []
+      },
+      {
+         5: "Saturday",
+         days: []
+      },
+      {
+         6: "Sunday",
+         days: []
+      }
+   ];
+  
+  let firstDays = semana.slice(day, semana.length)
+  let lastDays =  semana.splice(day, semana.length)
+  semana.concat(firstDays,lastDays);
+  console.log(semana);
+   for(let e = 0; e < semana.length; e++){
+      if(semana[e] == day){
+         semana.splice(day)
+      }
+   }
+
+   for (let t = 0; t < datos.length; t++) {
+      semana[conDay].days.push(datos[t]);
+      if (semana[conDay].days.length == 24) {
+         conDay++;
+      }
+   }
+   // console.log(semana);
+
+   //   for (let i = 0; i < datos.length; i++) {
+   //       while(semana[] < 24){
+
+   //       }
+   //   }
 }
 
 function getIconImg(valor) {
@@ -100,6 +160,7 @@ function getIconImg(valor) {
    }
    return temp;
 }
+
 
 
 const city = [
@@ -159,8 +220,10 @@ document.addEventListener("click", (e) => {
 
    city.forEach(el => {
       if (e.target.id == el.name) {
-         getCity({ lat: el.lat, long: el.long }).then(res => {
+         getCityDatos({ lat: el.lat, long: el.long }).then(res => {
             setPainelFeelsLike(res, el.name);
+            getDayWeek(res.temp,todayWeek);
+
          })
       }
    })
@@ -175,7 +238,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
          long: long
       }
       try {
-         const res = await getCity(cord);
+         const res = await getCityDatos(cord);
          const name = await getNameCity(cord);
          setPainelFeelsLike(res, name);
       } catch (err) {
