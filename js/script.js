@@ -80,58 +80,63 @@ function setPainelFeelsLike(datos, nameCity) {
 function getDayWeek(datos, day) {
    let conDay = 0;
    let semana = [
-      {
-         0: "Monday",
+      {  
+         id: 1,
+         name: "Monday",
          days: []
 
       },
       {
-         1: "Tuesday",
+         id: 2,
+         name: "Tuesday",
          days: []
       },
       {
-         2: "Wednesday",
+         id: 3,
+         name: "Wednesday",
          days: []
       },
       {
-         3: "Thursday",
+         id: 4,
+         name: "Thursday",
          days: []
       },
       {
-         4: "Friday",
+         id:5,
+         name: "Friday",
          days: []
       },
       {
-         5: "Saturday",
+         id: 6,
+         name: "Saturday",
          days: []
       },
       {
-         6: "Sunday",
+         id:7,
+         name: "Sunday",
          days: []
       }
    ];
+   
   let ordenSemana = [];
 //   let firstDays = semana.slice(day, semana.length)
-  let lastDays =  semana.splice(day, semana.length)
+//   let lastDays =  semana.splice(day, semana.length)
 //  semana.concat(firstDays,lastDays);
-  console.log(semana);
-   for(let e = 0; e < semana.length; e++){
-     
-   }
 
+let cont = 0;
+  while(semana[cont].id != day ){
+   ordenSemana[cont] = semana[cont];
+   cont++;
+  }
+semana.slice(day);
+console.log(ordenSemana);
+console.log(semana)
    for (let t = 0; t < datos.length; t++) {
       semana[conDay].days.push(datos[t]);
       if (semana[conDay].days.length == 24) {
          conDay++;
       }
    }
-   // console.log(semana);
-
-   //   for (let i = 0; i < datos.length; i++) {
-   //       while(semana[] < 24){
-
-   //       }
-   //   }
 }
 
 function getIconImg(valor) {
