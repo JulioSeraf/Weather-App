@@ -80,7 +80,7 @@ function setPainelFeelsLike(datos, nameCity) {
 function getDayWeek(datos, day) {
    let conDay = 0;
    let semana = [
-      {  
+      {
          id: 1,
          name: "Monday",
          days: []
@@ -102,7 +102,7 @@ function getDayWeek(datos, day) {
          days: []
       },
       {
-         id:5,
+         id: 5,
          name: "Friday",
          days: []
       },
@@ -112,32 +112,31 @@ function getDayWeek(datos, day) {
          days: []
       },
       {
-         id:7,
+         id: 7,
          name: "Sunday",
          days: []
       }
    ];
-   
-  let ordenSemana = [];
- 
-//   let lastDays =  semana.splice(day, semana.length)
-//  semana.concat(firstDays,lastDays);
 
-let cont = 0;
-  while(semana[cont].id != day ){
-   ordenSemana[cont] = semana[cont];
-   cont++;
-  }
-  
-semana.slice(day);
-console.log(ordenSemana);
-console.log(semana.slice(day-1, semana.length))
+   let ordenSemana = [];
+
+   //   let lastDays =  semana.splice(day, semana.length)
+   //  semana.concat(firstDays,lastDays);
+
+   let cont = 0;
+   while (semana[cont].id != day) {
+      ordenSemana[cont] = semana[cont];
+      cont++;
+   }
+   ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
+
    for (let t = 0; t < datos.length; t++) {
-      semana[conDay].days.push(datos[t]);
-      if (semana[conDay].days.length == 24) {
+      ordenSemana[conDay].days.push(datos[t]);
+      if (ordenSemana[conDay].days.length == 24) {
          conDay++;
       }
    }
+   console.log(ordenSemana)
 }
 
 function getIconImg(valor) {
@@ -226,7 +225,7 @@ document.addEventListener("click", (e) => {
       if (e.target.id == el.name) {
          getCityDatos({ lat: el.lat, long: el.long }).then(res => {
             setPainelFeelsLike(res, el.name);
-            getDayWeek(res.temp,todayWeek);
+            getDayWeek(res.temp, todayWeek);
 
          })
       }
