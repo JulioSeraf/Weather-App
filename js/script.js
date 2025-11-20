@@ -12,6 +12,8 @@ const feelsLikeP = d.getElementById("feels");
 const humidityP = d.getElementById("humidity");
 const windP = d.getElementById("wind");
 const precP = d.getElementById("precipitation");
+const templeteDaily = d.getElementById("daily-templete").content;
+   
 // console.log(feelsLike)
 let latitude, logitud;
 let temperature = null,
@@ -46,7 +48,7 @@ async function getCityDatos(el) {
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
          windS: json.hourly.wind_speed_10m,
-         cod: json.hourly.weather_code,
+         wCod: json.hourly.weather_code,
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
@@ -66,7 +68,7 @@ function setPainelFeelsLike(datos, nameCity) {
          console.log(nameCity)
          painelInfo.querySelector("#painel-city").textContent = nameCity;
          painelInfo.querySelector("#painel-week").textContent = "Tuedary";
-         painelInfo.querySelector("img").src = getIconImg(datos.cod[i]);
+         painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
          painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
          feelsLikeP.textContent = datos.feelsL[i];
          humidityP.textContent = datos.humity[i];
@@ -79,6 +81,7 @@ function setPainelFeelsLike(datos, nameCity) {
 }
 function getDayWeek(datos, day) {
    let conDay = 0;
+   let ordenSemana = [];
    let semana = [
       {
          id: 1,
@@ -116,17 +119,14 @@ function getDayWeek(datos, day) {
          name: "Sunday",
          days: []
       }
-   ];
-
-   let ordenSemana = [];
-
-   //   let lastDays =  semana.splice(day, semana.length)
-   //  semana.concat(firstDays,lastDays);
+   ]
 
    let cont = 0;
-   while (semana[cont].id != day) {
+   // console.log(semana[7].id)
+   while (semana[cont].id !== day) {
+      console.log(semana[cont].id)
       ordenSemana[cont] = semana[cont];
-      cont++;
+      cont = cont +1;
    }
    ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
 
@@ -136,8 +136,19 @@ function getDayWeek(datos, day) {
          conDay++;
       }
    }
-   console.log(ordenSemana)
+   return ordenSemana;
 }
+
+function getDailyForecast(wCod){
+   getDayWeek(wCod,todayWeek).forEach(el => {
+      templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0,2);
+      templeteDaily.querySelector('img').src = getIconImg(wCod[0]);
+      templeteDaily.querySelector('.day-max').textContent;
+   })
+   
+}
+
+
 
 function getIconImg(valor) {
 
@@ -188,6 +199,8 @@ const city = [
       long: 40.4165
    }
 ]
+
+
 
 document.addEventListener("click", (e) => {
    e.preventDefault();
@@ -244,6 +257,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
          const res = await getCityDatos(cord);
          const name = await getNameCity(cord);
          setPainelFeelsLike(res, name);
+         getDailyForecast(res.wCod);
       } catch (err) {
          console.error(err);
       }
