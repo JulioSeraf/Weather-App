@@ -119,7 +119,7 @@ function getDayWeek(datos, day) {
    ];
    
   let ordenSemana = [];
-//   let firstDays = semana.slice(day, semana.length)
+ 
 //   let lastDays =  semana.splice(day, semana.length)
 //  semana.concat(firstDays,lastDays);
 
@@ -128,9 +128,10 @@ let cont = 0;
    ordenSemana[cont] = semana[cont];
    cont++;
   }
+  
 semana.slice(day);
 console.log(ordenSemana);
-console.log(semana)
+console.log(semana.slice(day-1, semana.length))
    for (let t = 0; t < datos.length; t++) {
       semana[conDay].days.push(datos[t]);
       if (semana[conDay].days.length == 24) {
