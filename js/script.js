@@ -30,7 +30,7 @@ async function getNameCity(el) {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
       let hereCity = await resCity.json();
 
-      let city = hereCity.city + ',' + hereCity.countryName
+      let city = hereCity.city + ', ' + hereCity.countryName
       return city;
    } catch (err) {
       console.error("Error de peticion " + er);
@@ -136,16 +136,20 @@ function getDayWeek(datos, day) {
          conDay++;
       }
    }
+   console.log(ordenSemana)
    return ordenSemana;
 }
 
-function getDailyForecast(wCod){
-   getDayWeek(wCod,todayWeek).forEach(el => {
-      templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0,2);
-      templeteDaily.querySelector('img').src = getIconImg(wCod[0]);
-      templeteDaily.querySelector('.day-max').textContent;
+function getDailyForecast(datos){
+   getDayWeek(datos.temp,todayWeek).forEach(el => {
+      templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0,3);
+      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
+      templeteDaily.querySelector('.day-min').textContent = el.days.sort()[el.days.length-1];
+      templeteDaily.querySelector('.day-max').textContent = el.days.sort()[0];
+      let clone = d.importNode(templeteDaily, true);
+      fragment.appendChild(clone);
    })
-   
+   d.querySelector('.div-daily').appendChild(fragment);
 }
 
 
@@ -179,22 +183,22 @@ function getIconImg(valor) {
 
 const city = [
    {
-      name: 'Sevilla',
+      name: 'Sevilla, España',
       lat: 37.3828,
       long: -5.9732
    },
    {
-      name: 'Cadiz',
+      name: 'Cadiz, España',
       lat: 36.5267,
       long: 36.5267
    },
    {
-      name: 'Malaga',
+      name: 'Malaga, España',
       lat: 36.7202,
       long: -4.4203
    },
    {
-      name: 'Madrid',
+      name: 'Madrid, España',
       lat: 40.4165,
       long: 40.4165
    }
@@ -257,7 +261,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
          const res = await getCityDatos(cord);
          const name = await getNameCity(cord);
          setPainelFeelsLike(res, name);
-         getDailyForecast(res.wCod);
+         getDailyForecast(res);
       } catch (err) {
          console.error(err);
       }
