@@ -1,27 +1,30 @@
-const d = document;
-const unitsBut = d.getElementById('units-but');
-const formSearch = d.getElementById('search');
-const navImMe = d.getElementById('nav-imp-met');
-const templeteCitys = d.getElementById('search-citys').content;
-// const painel = d.getElementById("tem-ppainelInfot;
-const painelInfo = d.querySelector(".painel-info");
-const fragment = d.createDocumentFragment();
-const search = d.querySelector("#search-opt");
-const searchInput = d.getElementById('search-input');
-const feelsLikeP = d.getElementById("feels");
-const humidityP = d.getElementById("humidity");
-const windP = d.getElementById("wind");
-const precP = d.getElementById("precipitation");
-const templeteDaily = d.getElementById("daily-templete").content;
-let latitude, logitud;
-let temperature = null,
+const d = document,
+   unitsBut = d.getElementById('units-but'),
+   formSearch = d.getElementById('search'),
+   navImMe = d.getElementById('nav-imp-met'),
+   templeteCitys = d.getElementById('search-citys').content,
+   painelInfo = d.querySelector(".painel-info"),
+   fragment = d.createDocumentFragment(),
+   search = d.querySelector("#search-opt"),
+   searchInput = d.getElementById('search-input'),
+   feelsLikeP = d.getElementById("feels"),
+   humidityP = d.getElementById("humidity"),
+   windP = d.getElementById("wind"),
+   precP = d.getElementById("precipitation"),
+   templeteDaily = d.getElementById("daily-templete").content,
+   templeteOptHourly = d.getElementById("opt-hourly").content,
+   templeteHourly = d.getElementById("hourly-templete").content,
+   hourlySelect = d.getElementById('hourly-select'),
+   todayHrs = new Date().getHours(),
+   todayDay = new Date().getDate(),
+   todayWeek = new Date().getDay();
+
+let latitude, logitud,
+   temperature = null,
    windSpeed = null,
    precipitation = null,
-   hours = null;
-let todayHrs = new Date().getHours();
-let todayDay = new Date().getDate();
-const todayWeek = new Date().getDay();
-let fullDate = new Date().toDateString();
+   hours = null,
+   fullDate = new Date().toDateString();
 
 async function getNameCity(el) {
    try {
@@ -56,128 +59,6 @@ async function getCityDatos(el) {
       console.error("Error de peticion " + er);
    }
 }
-
-function setPainelFeelsLike(datos, nameCity) {
-   for (let i = 0; i < datos.time.length; i++) {
-      if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
-         let date = getDayWeek(datos,todayWeek)[0].name;
-         // setPainelFeelsLike(datos, i);
-         console.log(nameCity)
-         painelInfo.querySelector("#painel-city").textContent = nameCity;
-         painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0,3),date) ;
-         painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
-         painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
-         feelsLikeP.textContent = datos.feelsL[i];
-         humidityP.textContent = datos.humity[i];
-         precP.textContent = datos.prec[i];
-         windP.textContent = datos.windS[i];
-
-      }
-   }
-
-}
-function getDayWeek(datos, day) {
-   let conDay = 0;
-   let ordenSemana = [];
-   let semana = [
-      {
-         id: 1,
-         name: "Monday",
-         days: []
-
-      },
-      {
-         id: 2,
-         name: "Tuesday",
-         days: []
-      },
-      {
-         id: 3,
-         name: "Wednesday",
-         days: []
-      },
-      {
-         id: 4,
-         name: "Thursday",
-         days: []
-      },
-      {
-         id: 5,
-         name: "Friday",
-         days: []
-      },
-      {
-         id: 6,
-         name: "Saturday",
-         days: []
-      },
-      {
-         id: 7,
-         name: "Sunday",
-         days: []
-      }
-   ]
-
-   let cont = 0;
-   // console.log(semana[7].id)
-   while (semana[cont].id !== day) {
-      console.log(semana[cont].id)
-      ordenSemana[cont] = semana[cont];
-      cont = cont +1;
-   }
-   ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
-
-   for (let t = 0; t < datos.length; t++) {
-      ordenSemana[conDay].days.push(datos[t]);
-      if (ordenSemana[conDay].days.length == 24) {
-         conDay++;
-      }
-   }
-   console.log(ordenSemana)
-   return ordenSemana;
-}
-
-function getDailyForecast(datos){
-   getDayWeek(datos.temp,todayWeek).forEach(el => {
-      templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0,3);
-      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
-      templeteDaily.querySelector('.day-min').textContent = el.days.sort()[el.days.length-1];
-      templeteDaily.querySelector('.day-max').textContent = el.days.sort()[0];
-      let clone = d.importNode(templeteDaily, true);
-      fragment.appendChild(clone);
-   })
-   d.querySelector('.div-daily').appendChild(fragment);
-}
-
-
-
-function getIconImg(valor) {
-
-   let temp = "";
-   switch (true) {
-      case valor == 0: temp = 'assets/images/icon-sunny.webp';
-         break;
-      case valor == 1 || valor == 2: temp = 'assets/images/icon-partly-cloudy.webp';
-         break;
-      case valor == 3: temp = 'assets/images/icon-overcast.webp';
-         break;
-      case valor == 45 || valor == 46: temp = 'assets/images/icon-fog.webp';
-         break;
-      case (valor >= 51 && valor <= 57): temp = 'assets/images/icon-drizzle.webp';
-         break;
-      case ((valor >= 61 && valor <= 67) || valor >= 80 && valor <= 82): temp = 'assets/images/icon-rain.webp';
-         break;
-      case (valor >= 71 && valor <= 77) || valor == 85 || valor == 86: temp = 'assets/images/icon-snow.webp';
-         break;
-      case valor >= 95 && valor <= 99: temp = 'assets/images/icon-storm.webp';
-         break;
-      default: "imagen no found!!"
-   }
-   return temp;
-}
-
-
-
 const city = [
    {
       name: 'Sevilla, España',
@@ -202,6 +83,132 @@ const city = [
 ]
 
 
+
+function setPainelFeelsLike(datos, nameCity) {
+   for (let i = 0; i < datos.time.length; i++) {
+      if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
+         let date = getDayWeek(datos, todayWeek)[0].name;
+         painelInfo.querySelector("#painel-city").textContent = nameCity;
+         painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0, 3), date);
+         painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
+         painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
+         feelsLikeP.textContent = datos.feelsL[i];
+         humidityP.textContent = datos.humity[i];
+         precP.textContent = datos.prec[i];
+         windP.textContent = datos.windS[i];
+
+      }
+   }
+
+}
+function getDayWeek(datos, day) {
+   let conDay = 0;
+   let ordenSemana = [];
+   let semana = [
+      {
+         id: 1,
+         name: "Monday",
+         daysTemp: []
+
+      },
+      {
+         id: 2,
+         name: "Tuesday",
+         daysTemp: []
+      },
+      {
+         id: 3,
+         name: "Wednesday",
+         daysTemp: []
+      },
+      {
+         id: 4,
+         name: "Thursday",
+         daysTemp: []
+      },
+      {
+         id: 5,
+         name: "Friday",
+         daysTemp: []
+      },
+      {
+         id: 6,
+         name: "Saturday",
+         daysTemp: []
+      },
+      {
+         id: 7,
+         name: "Sunday",
+         daysTemp: []
+      }
+   ]
+
+   let cont = 0;
+   while (semana[cont].id !== day) {
+      ordenSemana[cont] = semana[cont];
+      cont = cont + 1;
+   }
+   ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
+
+   for (let t = 0; t < datos.length; t++) {
+      ordenSemana[conDay].daysTemp.push(datos[t]);
+      if (ordenSemana[conDay].daysTemp.length == 24) {
+         conDay++;
+      }
+   }
+   return ordenSemana;
+}
+
+function getDailyForecast(datos) {
+   getDayWeek(datos.temp, todayWeek).forEach(el => {
+      templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0, 3);
+      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
+      templeteDaily.querySelector('.day-min').textContent = el.daysTemp.sort()[el.daysTemp.length - 1];
+      templeteDaily.querySelector('.day-max').textContent = el.daysTemp.sort()[0];
+      let clone = d.importNode(templeteDaily, true);
+      fragment.appendChild(clone);
+   })
+   d.querySelector('.div-daily').appendChild(fragment);
+}
+
+
+
+function getIconImg(valor) {
+   let temp = "";
+   switch (true) {
+      case valor == 0: temp = 'assets/images/icon-sunny.webp';
+         break;
+      case valor == 1 || valor == 2: temp = 'assets/images/icon-partly-cloudy.webp';
+         break;
+      case valor == 3: temp = 'assets/images/icon-overcast.webp';
+         break;
+      case valor == 45 || valor == 46: temp = 'assets/images/icon-fog.webp';
+         break;
+      case (valor >= 51 && valor <= 57): temp = 'assets/images/icon-drizzle.webp';
+         break;
+      case ((valor >= 61 && valor <= 67) || valor >= 80 && valor <= 82): temp = 'assets/images/icon-rain.webp';
+         break;
+      case (valor >= 71 && valor <= 77) || valor == 85 || valor == 86: temp = 'assets/images/icon-snow.webp';
+         break;
+      case valor >= 95 && valor <= 99: temp = 'assets/images/icon-storm.webp';
+         break;
+      default: "imagen no found!!"
+   }
+   return temp;
+}
+function getSelectHourly(res) {
+   getDayWeek(res.temp, todayWeek).forEach(e => {
+      templeteOptHourly.querySelector('option').value = e.id;
+      templeteOptHourly.querySelector('option').textContent = e.name;
+      let clone = d.importNode(templeteOptHourly, true);
+      fragment.appendChild(clone);
+   })
+   hourlySelect.appendChild(fragment);
+
+   hourlySelect.querySelectorAll('option').forEach(el => {
+      
+   })
+}
 
 document.addEventListener("click", (e) => {
    e.preventDefault();
@@ -255,10 +262,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
          long: long
       }
       try {
-         const res = await getCityDatos(cord);
+         const dato = await getCityDatos(cord);
          const name = await getNameCity(cord);
-         setPainelFeelsLike(res, name);
-         getDailyForecast(res);
+         setPainelFeelsLike(dato, name);
+         getDailyForecast(dato);
+         getSelectHourly(dato);
       } catch (err) {
          console.error(err);
       }

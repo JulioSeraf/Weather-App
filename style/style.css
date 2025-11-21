@@ -239,6 +239,7 @@ main {
 }
 #daily-box h3{
     padding-bottom: 10px;
+    font-weight: 500;
 }
 .div-daily {
     width: 100%;
@@ -248,15 +249,23 @@ main {
     gap: 15px;
     flex-wrap: wrap;
 }
-
+#sigla-semanal{
+    text-align: center;
+    font-weight: 400;
+}
 .week-days-info {
     padding: 10px;
     border-radius: 10px;
     background-color: hsl(243, 23%, 30%);
     width: 100px;
-    /* width: 10ç%; */
 }
-
+.day-max{
+    display: inline;
+}
+.day-min{
+    display: inline;
+    float: right;
+}
 aside {
     height: 45vh;
 }
