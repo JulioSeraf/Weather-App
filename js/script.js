@@ -13,8 +13,6 @@ const humidityP = d.getElementById("humidity");
 const windP = d.getElementById("wind");
 const precP = d.getElementById("precipitation");
 const templeteDaily = d.getElementById("daily-templete").content;
-   
-// console.log(feelsLike)
 let latitude, logitud;
 let temperature = null,
    windSpeed = null,
@@ -23,7 +21,7 @@ let temperature = null,
 let todayHrs = new Date().getHours();
 let todayDay = new Date().getDate();
 const todayWeek = new Date().getDay();
-console.log(todayWeek)
+let fullDate = new Date().toDateString();
 
 async function getNameCity(el) {
    try {
@@ -60,14 +58,13 @@ async function getCityDatos(el) {
 }
 
 function setPainelFeelsLike(datos, nameCity) {
-
-
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
+         let date = getDayWeek(datos,todayWeek)[0].name;
          // setPainelFeelsLike(datos, i);
          console.log(nameCity)
          painelInfo.querySelector("#painel-city").textContent = nameCity;
-         painelInfo.querySelector("#painel-week").textContent = "Tuedary";
+         painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0,3),date) ;
          painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
          painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
          feelsLikeP.textContent = datos.feelsL[i];
