@@ -257,7 +257,7 @@ main {
     padding: 10px;
     border-radius: 10px;
     background-color: hsl(243, 23%, 30%);
-    width: 100px;
+    width: 90px;
 }
 .day-max{
     display: inline;
@@ -267,7 +267,23 @@ main {
     float: right;
 }
 aside {
+    width: 90%;
     height: 45vh;
+    background-color: hsl(243, 23%, 30%) ;
+}
+aside h3{
+    border: 1px solid white;
+    display: inline;
+    padding: 10px;
+    margin: 10px;
+
+}
+#hourly-select{
+    display: inline;
+    float: right;
+    background-color: hsl(243, 23%, 30%);
+    color: black;
+    border-radius: 10px;
 }
 
 footer {

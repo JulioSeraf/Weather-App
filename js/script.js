@@ -205,9 +205,7 @@ function getSelectHourly(res) {
    })
    hourlySelect.appendChild(fragment);
 
-   hourlySelect.querySelectorAll('option').forEach(el => {
-      
-   })
+   return hourlySelect.querySelectorAll('option');
 }
 
 document.addEventListener("click", (e) => {
@@ -251,8 +249,9 @@ document.addEventListener("click", (e) => {
          })
       }
    })
-})
 
+})
+ 
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
@@ -266,7 +265,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
          const name = await getNameCity(cord);
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
-         getSelectHourly(dato);
+         getSelectHourly(dato).forEach(el => {
+            el.addEventListener('click', el =>{
+               templeteHourly.querySelector('img').src = getIconImg()
+            })
+         })
       } catch (err) {
          console.error(err);
       }
