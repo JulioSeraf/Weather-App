@@ -25,7 +25,6 @@ let latitude, logitud,
    precipitation = null,
    hours = null,
    fullDate = new Date().toDateString();
-
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
@@ -196,7 +195,7 @@ function getIconImg(valor) {
    }
    return temp;
 }
-function getSelectHourly(res) {
+ function getSelectHourly(res) {
    getDayWeek(res.temp, todayWeek).forEach(e => {
       templeteOptHourly.querySelector('option').value = e.id;
       templeteOptHourly.querySelector('option').textContent = e.name;
@@ -204,12 +203,9 @@ function getSelectHourly(res) {
       fragment.appendChild(clone);
    })
    hourlySelect.appendChild(fragment);
-
-   return hourlySelect.querySelectorAll('option');
 }
 
 document.addEventListener("click", (e) => {
-   e.preventDefault();
 
    if (e.target.matches("#units-but *")) {
       navImMe.classList.toggle("onDisplay");
@@ -222,6 +218,7 @@ document.addEventListener("click", (e) => {
 
 
    if (e.target.matches("#search-but")) {
+      e.preventDefault();
       console.log(searchInput.value)
       let valueSearch = searchInput.value;
       // search.replaceChildren();
@@ -238,8 +235,10 @@ document.addEventListener("click", (e) => {
          search.classList.add("onDisplay");
       }
 
+      
    }
-
+   
+   
    city.forEach(el => {
       if (e.target.id == el.name) {
          getCityDatos({ lat: el.lat, long: el.long }).then(res => {
@@ -251,7 +250,9 @@ document.addEventListener("click", (e) => {
    })
 
 })
- 
+
+
+
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
@@ -265,10 +266,23 @@ window.addEventListener("DOMContentLoaded", (e) => {
          const name = await getNameCity(cord);
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
-         getSelectHourly(dato).forEach(el => {
-            el.addEventListener('click', el =>{
-               templeteHourly.querySelector('img').src = getIconImg()
+         getSelectHourly(dato);
+         console.log()
+         
+         hourlySelect.addEventListener('change', (e)=>{
+            // e.preventDefault()
+            // templeteHourly.innerHTML = "";
+            let hour = 0;
+            getDayWeek(dato.temp,todayWeek)[e.target.value].daysTemp.forEach(t => {
+               templeteHourly.querySelector('img').src = "#";
+               templeteHourly.querySelector('#hour-hourly').textContent = hour++ ;
+               templeteHourly.querySelector('#temp-hourly').textContent = t;
+               let clone = d.importNode(templeteHourly,true);
+               fragment.appendChild(clone);
             })
+            document.querySelector('aside').appendChild(fragment); 
+
+            
          })
       } catch (err) {
          console.error(err);
@@ -280,7 +294,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
 })
 
-
+ 
 
 
 
