@@ -107,38 +107,51 @@ function getDayWeek(datos, day) {
       {
          id: 1,
          name: "Monday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
 
       },
       {
          id: 2,
          name: "Tuesday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       },
       {
          id: 3,
          name: "Wednesday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       },
       {
          id: 4,
          name: "Thursday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       },
       {
          id: 5,
          name: "Friday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       },
       {
          id: 6,
          name: "Saturday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       },
       {
          id: 7,
          name: "Sunday",
-         daysTemp: []
+         daysTemp: [],
+         cod: []
+
       }
    ]
 
@@ -272,8 +285,9 @@ window.addEventListener("DOMContentLoaded", (e) => {
          hourlySelect.addEventListener('change', (e)=>{
             // e.preventDefault()
             // templeteHourly.innerHTML = "";
+            console.log(e.target.value)
             let hour = 0;
-            getDayWeek(dato.temp,todayWeek)[e.target.value].daysTemp.forEach(t => {
+            getDayWeek(dato.temp,todayWeek)[e.target.value-1].daysTemp.forEach(t => {
                templeteHourly.querySelector('img').src = "#";
                templeteHourly.querySelector('#hour-hourly').textContent = hour++ ;
                templeteHourly.querySelector('#temp-hourly').textContent = t;
