@@ -294,10 +294,10 @@ aside h3{
 }
 .nav-select{
     /* border: 1px solid white; */
+    position:sticky;
     padding: 20px;
     width: 100%;
     background-color: hsl(243, 23%, 24%);
-    position:sticky;
     top: 0;
 }
 

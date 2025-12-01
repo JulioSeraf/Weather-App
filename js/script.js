@@ -163,6 +163,7 @@ function getDayWeek(datos, day) {
    ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
 
    for (let t = 0; t < datos.length; t++) {
+      ordenSemana[conDay].cod.push(t);
       ordenSemana[conDay].daysTemp.push(datos[t]);
       if (ordenSemana[conDay].daysTemp.length == 24) {
          conDay++;
@@ -194,21 +195,21 @@ function getIconImg(valor) {
          break;
       case valor == 3: temp = 'assets/images/icon-overcast.webp';
          break;
-      case valor == 45 || valor == 46: temp = 'assets/images/icon-fog.webp';
+      case valor >= 45 && valor <= 50: temp = 'assets/images/icon-fog.webp';
          break;
-      case (valor >= 51 && valor <= 57): temp = 'assets/images/icon-drizzle.webp';
+      case (valor >= 51 && valor <= 59): temp = 'assets/images/icon-drizzle.webp';
          break;
-      case ((valor >= 61 && valor <= 67) || valor >= 80 && valor <= 82): temp = 'assets/images/icon-rain.webp';
+      case ((valor >= 60 && valor <= 69) || valor >= 80 && valor <= 82): temp = 'assets/images/icon-rain.webp';
          break;
-      case (valor >= 71 && valor <= 77) || valor == 85 || valor == 86: temp = 'assets/images/icon-snow.webp';
+      case (valor >= 70 && valor <= 89): temp = 'assets/images/icon-snow.webp';
          break;
-      case valor >= 95 && valor <= 99: temp = 'assets/images/icon-storm.webp';
+      case valor >= 90 && valor <= 99: temp = 'assets/images/icon-storm.webp';
          break;
       default: "imagen no found!!"
    }
    return temp;
 }
- function getSelectHourly(res) {
+function getSelectHourly(res) {
    getDayWeek(res.temp, todayWeek).forEach(e => {
       templeteOptHourly.querySelector('option').value = e.id;
       templeteOptHourly.querySelector('option').textContent = e.name;
@@ -248,10 +249,10 @@ document.addEventListener("click", (e) => {
          search.classList.add("onDisplay");
       }
 
-      
+
    }
-   
-   
+
+
    city.forEach(el => {
       if (e.target.id == el.name) {
          getCityDatos({ lat: el.lat, long: el.long }).then(res => {
@@ -281,22 +282,28 @@ window.addEventListener("DOMContentLoaded", (e) => {
          getDailyForecast(dato);
          getSelectHourly(dato);
          console.log()
-         
-         hourlySelect.addEventListener('change', (e)=>{
+
+         hourlySelect.addEventListener('change', (e) => {
             // e.preventDefault()
             // templeteHourly.innerHTML = "";
             console.log(e.target.value)
-            let hour = 0;
-            getDayWeek(dato.temp,todayWeek)[e.target.value-1].daysTemp.forEach(t => {
-               templeteHourly.querySelector('img').src = "#";
-               templeteHourly.querySelector('#hour-hourly').textContent = hour++ ;
-               templeteHourly.querySelector('#temp-hourly').textContent = t;
-               let clone = d.importNode(templeteHourly,true);
-               fragment.appendChild(clone);
+            let cont = 0;
+            getDayWeek(dato.temp, todayWeek).forEach((el) => {
+               if (e.target.value == el.id -1) {
+                     el.daysTemp.forEach(t => {
+                     console.log(el.cod[cont])
+                     templeteHourly.querySelector('img').src =getIconImg(el.cod[cont]);
+                     templeteHourly.querySelector('#hour-hourly').textContent = cont + ":00";
+                     templeteHourly.querySelector('#temp-hourly').textContent = t;
+                     let clone = d.importNode(templeteHourly, true);
+                     fragment.appendChild(clone);
+                     cont++;
+                  })
+                   document.querySelector('aside').appendChild(fragment);
+               }
             })
-            document.querySelector('aside').appendChild(fragment); 
+           
 
-            
          })
       } catch (err) {
          console.error(err);
@@ -308,7 +315,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
 })
 
- 
+
 
 
 
