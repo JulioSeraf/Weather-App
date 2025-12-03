@@ -218,6 +218,9 @@ function getSelectHourly(res) {
    })
    hourlySelect.appendChild(fragment);
 }
+function createHourlyForecast(datos){
+
+}
 
 document.addEventListener("click", (e) => {
 
@@ -291,19 +294,18 @@ window.addEventListener("DOMContentLoaded", (e) => {
             getDayWeek(dato.temp, todayWeek).forEach((el) => {
                if (e.target.value == el.id -1) {
                      el.daysTemp.forEach(t => {
-                     console.log(el.cod[cont])
+                     // console.log(el.cod[cont])
                      templeteHourly.querySelector('img').src =getIconImg(el.cod[cont]);
                      templeteHourly.querySelector('#hour-hourly').textContent = cont + ":00";
                      templeteHourly.querySelector('#temp-hourly').textContent = t;
                      let clone = d.importNode(templeteHourly, true);
                      fragment.appendChild(clone);
+                     console.log(cont)
                      cont++;
                   })
                    document.querySelector('aside').appendChild(fragment);
                }
-            })
-           
-
+            })  
          })
       } catch (err) {
          console.error(err);
