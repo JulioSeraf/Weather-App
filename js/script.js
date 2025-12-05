@@ -29,7 +29,6 @@ async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
       let hereCity = await resCity.json();
-
       let city = hereCity.city + ', ' + hereCity.countryName
       return city;
    } catch (err) {
@@ -162,9 +161,9 @@ function getDayWeek(datos, day) {
    }
    ordenSemana = semana.slice(day - 1, semana.length).concat(ordenSemana);
 
-   for (let t = 0; t < datos.length; t++) {
-      ordenSemana[conDay].cod.push(t);
-      ordenSemana[conDay].daysTemp.push(datos[t]);
+   for (let i = 0; i < datos.temp.length; i++) {
+      ordenSemana[conDay].cod.push(datos.wCod[i]);
+      ordenSemana[conDay].daysTemp.push(datos.temp[i]);
       if (ordenSemana[conDay].daysTemp.length == 24) {
          conDay++;
       }
@@ -173,7 +172,8 @@ function getDayWeek(datos, day) {
 }
 
 function getDailyForecast(datos) {
-   getDayWeek(datos.temp, todayWeek).forEach(el => {
+   getDayWeek(datos, todayWeek).forEach(el => {
+      console.log(el)
       templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0, 3);
       templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
       templeteDaily.querySelector('.day-min').textContent = el.daysTemp.sort()[el.daysTemp.length - 1];
@@ -187,30 +187,30 @@ function getDailyForecast(datos) {
 
 
 function getIconImg(valor) {
-   let temp = "";
+   let imgTemp = "";
    switch (true) {
-      case valor == 0: temp = 'assets/images/icon-sunny.webp';
+      case valor == 0: imgTemp = 'assets/images/icon-sunny.webp';
          break;
-      case valor == 1 || valor == 2: temp = 'assets/images/icon-partly-cloudy.webp';
+      case valor == 1 || valor == 2: imgTemp = 'assets/images/icon-partly-cloudy.webp';
          break;
-      case valor == 3: temp = 'assets/images/icon-overcast.webp';
+      case valor == 3: imgTemp = 'assets/images/icon-overcast.webp';
          break;
-      case valor >= 45 && valor <= 50: temp = 'assets/images/icon-fog.webp';
+      case valor >= 45 && valor <= 50: imgTemp = 'assets/images/icon-fog.webp';
          break;
-      case (valor >= 51 && valor <= 59): temp = 'assets/images/icon-drizzle.webp';
+      case (valor >= 51 && valor <= 59): imgTemp = 'assets/images/icon-drizzle.webp';
          break;
-      case ((valor >= 60 && valor <= 69) || valor >= 80 && valor <= 82): temp = 'assets/images/icon-rain.webp';
+      case ((valor >= 60 && valor <= 69) || valor >= 80 && valor <= 82): imgTemp = 'assets/images/icon-rain.webp';
          break;
-      case (valor >= 70 && valor <= 89): temp = 'assets/images/icon-snow.webp';
+      case (valor >= 70 && valor <= 89): imgTemp = 'assets/images/icon-snow.webp';
          break;
-      case valor >= 90 && valor <= 99: temp = 'assets/images/icon-storm.webp';
+      case valor >= 90 && valor <= 99: imgTemp = 'assets/images/icon-storm.webp';
          break;
-      default: "imagen no found!!"
+      default: imgTemp ="imagen no found!!"
    }
-   return temp;
+   return imgTemp;
 }
-function getSelectHourly(res) {
-   getDayWeek(res.temp, todayWeek).forEach(e => {
+function getSelectHourly(datos) {
+   getDayWeek(datos, todayWeek).forEach(e => {
       templeteOptHourly.querySelector('option').value = e.id;
       templeteOptHourly.querySelector('option').textContent = e.name;
       let clone = d.importNode(templeteOptHourly, true);
@@ -258,9 +258,9 @@ document.addEventListener("click", (e) => {
 
    city.forEach(el => {
       if (e.target.id == el.name) {
-         getCityDatos({ lat: el.lat, long: el.long }).then(res => {
-            setPainelFeelsLike(res, el.name);
-            getDayWeek(res.temp, todayWeek);
+         getCityDatos({ lat: el.lat, long: el.long }).then(datos => {
+            setPainelFeelsLike(datos, el.name);
+            getDayWeek(datos, todayWeek);
 
          })
       }
@@ -287,22 +287,22 @@ window.addEventListener("DOMContentLoaded", (e) => {
          console.log()
 
          hourlySelect.addEventListener('change', (e) => {
+            document.querySelector('.box-hourly').textContent ="";
             // e.preventDefault()
             // templeteHourly.innerHTML = "";
             console.log(e.target.value)
-            let cont = 0;
-            getDayWeek(dato.temp, todayWeek).forEach((el) => {
+            let codPosition = 0;
+            getDayWeek(dato, todayWeek).forEach((el) => {
                if (e.target.value == el.id -1) {
                      el.daysTemp.forEach(t => {
-                     let pmAm = (cont >=13 )? " PM": " AM";
+                     let pmAm = (codPosition >=13 )? " PM": " AM";
                      // console.log(el.cod[cont])
-                     templeteHourly.querySelector('img').src =getIconImg(el.cod[cont]);
-                     templeteHourly.querySelector('#hour-hourly').textContent = cont + pmAm;
+                     templeteHourly.querySelector('img').src =getIconImg(el.cod[codPosition]);
+                     templeteHourly.querySelector('#hour-hourly').textContent = codPosition + pmAm;
                      templeteHourly.querySelector('#temp-hourly').textContent = t+"º";
                      let clone = d.importNode(templeteHourly, true);
                      fragment.appendChild(clone);
-                     console.log(cont)
-                     cont++;
+                     codPosition++;
                   })
                    document.querySelector('aside').appendChild(fragment);
                }
