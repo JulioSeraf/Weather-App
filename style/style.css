@@ -269,7 +269,7 @@ main {
 aside {
     /* position: relative; */
     width: 90%;
-    padding: 10px;
+    padding:0 10px;
     height:45vh;
     overflow: scroll;
     border-radius: 20px;
