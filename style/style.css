@@ -269,7 +269,7 @@ main {
 aside {
     /* position: relative; */
     width: 90%;
-    /* padding: 20px; */
+    padding: 10px;
     height:45vh;
     overflow: scroll;
     border-radius: 20px;
@@ -300,13 +300,33 @@ aside h3{
     background-color: hsl(243, 23%, 24%);
     top: 0;
 }
-
-.div-hourly{
+.box-hourly{
     display: flex;
-  width: 100%;
+    gap: 15px;
+
+}
+.div-hourly{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    background-color: hsl(243, 23%, 30%);
+    border-radius: 10px ;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 10px;
 }
 .div-hourly img{
     width: 20%;
+}
+.div-img-hourly{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+#hour-hourly{
+    
+}
+#temp-hourly{
 }
 footer {
     /* padding: 20px; */

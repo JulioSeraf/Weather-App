@@ -294,11 +294,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
             getDayWeek(dato.temp, todayWeek).forEach((el) => {
                if (e.target.value == el.id -1) {
                      el.daysTemp.forEach(t => {
-                     let pmAm = (cont >=13 )? "PM": "AM";
+                     let pmAm = (cont >=13 )? " PM": " AM";
                      // console.log(el.cod[cont])
                      templeteHourly.querySelector('img').src =getIconImg(el.cod[cont]);
                      templeteHourly.querySelector('#hour-hourly').textContent = cont + pmAm;
-                     templeteHourly.querySelector('#temp-hourly').textContent = t;
+                     templeteHourly.querySelector('#temp-hourly').textContent = t+"º";
                      let clone = d.importNode(templeteHourly, true);
                      fragment.appendChild(clone);
                      console.log(cont)

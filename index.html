@@ -59,7 +59,7 @@
       </template>
       <button id="search-but">Search</button>
     </form>
-</nav>
+  </nav>
   <main>
     <section id="painel-box">
       <div class="painel-info">
@@ -77,15 +77,15 @@
         <p>Feels Like</p>
         <p id="feels">00</p>
       </div>
-      <div >
+      <div>
         <p>Humidity</p>
         <p id="humidity">00</p>
       </div>
-      <div >
+      <div>
         <p>Wind</p>
         <p id="wind">00</p>
       </div>
-      <div >
+      <div>
         <p>Precipitation</p>
         <p id="precipitation">00</p>
       </div>
@@ -110,26 +110,33 @@
   <aside>
     <div class="nav-select">
       <h3>Hourly forecast</h3>
-    <select id="hourly-select">
-      <template id="opt-hourly">
-        <option class="opts" value=""></option>
-      </template>
-    </select></div>
-    
-    <template id="hourly-templete">
+      <select id="hourly-select">
+        <template id="opt-hourly">
+          <option class="opts" value=""></option>
+        </template>
+      </select>
+    </div>
+    <div class="box-hourly">
+      <template id="hourly-templete">
       <div class="div-hourly">
-        <img src="" alt="">
-        <p id="hour-hourly"></p>
+        <div class="div-img-hourly">
+          <img src="" alt="">
+          <p id="hour-hourly"></p>
+        </div>
         <p id="temp-hourly"></p>
       </div>
     </template>
+    </div>
+    
 
   </aside>
   <footer class="attribution">
-    <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a href="https://github.com/JulioSeraf" target="_blank">Julio Serafim</a>.
-  </footer></p>
-    
-   
+    <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by
+      <a href="https://github.com/JulioSeraf" target="_blank">Julio Serafim</a>.
+  </footer>
+  </p>
+
+
   <script src="js/script.js"></script>
 </body>
 
