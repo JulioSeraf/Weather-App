@@ -301,8 +301,12 @@ aside h3{
     top: 0;
 }
 
-#hourly-select{
-
+.div-hourly{
+    display: flex;
+  width: 100%;
+}
+.div-hourly img{
+    width: 20%;
 }
 footer {
     /* padding: 20px; */
