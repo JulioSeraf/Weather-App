@@ -168,20 +168,22 @@ function getDayWeek(datos, day) {
          conDay++;
       }
    }
+   console.log(ordenSemana)
    return ordenSemana;
+   
 }
 
 function getDailyForecast(datos) {
+   // d.querySelector('.div-daily').removeChild()
    getDayWeek(datos, todayWeek).forEach(el => {
-      console.log(el)
       templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0, 3);
       templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
-      templeteDaily.querySelector('.day-min').textContent = el.daysTemp.sort()[el.daysTemp.length - 1];
-      templeteDaily.querySelector('.day-max').textContent = el.daysTemp.sort()[0];
+      templeteDaily.querySelector('.day-min').textContent = el.daysTemp.sort()[el.daysTemp.length - 1] + "º";
+      templeteDaily.querySelector('.day-max').textContent = el.daysTemp.sort()[0] + "º";
       let clone = d.importNode(templeteDaily, true);
       fragment.appendChild(clone);
    })
-   d.querySelector('.div-daily').appendChild(fragment);
+   d.querySelector('.div-daily').replaceChildren(fragment);
 }
 
 
@@ -205,7 +207,7 @@ function getIconImg(valor) {
          break;
       case valor >= 90 && valor <= 99: imgTemp = 'assets/images/icon-storm.webp';
          break;
-      default: imgTemp ="imagen no found!!"
+      default: imgTemp = "imagen no found!!"
    }
    return imgTemp;
 }
@@ -216,9 +218,27 @@ function getSelectHourly(datos) {
       let clone = d.importNode(templeteOptHourly, true);
       fragment.appendChild(clone);
    })
-   hourlySelect.appendChild(fragment);
+   hourlySelect.replaceChildren(fragment);
 }
-function createHourlyForecast(datos){
+function createHourlyForecast(dato, value) {
+   let codPosition = 0;
+   getDayWeek(dato, todayWeek).forEach((el) => {
+      if (value == el.id) {
+         el.daysTemp.forEach(t => {
+            let pmAm = (codPosition >= 13) ? " PM" : " AM";
+            // console.log(el.cod[cont])
+            templeteHourly.querySelector('img').src = getIconImg(el.cod
+            [codPosition]);
+            templeteHourly.querySelector('#hour-hourly').textContent =
+               codPosition + pmAm;
+            templeteHourly.querySelector('#temp-hourly').textContent = t + "º";
+            let clone = d.importNode(templeteHourly, true);
+            fragment.appendChild(clone);
+            codPosition++;
+         })
+         document.querySelector('.box-hourly').replaceChildren(fragment);
+      }
+   })
 
 }
 
@@ -236,9 +256,7 @@ document.addEventListener("click", (e) => {
 
    if (e.target.matches("#search-but")) {
       e.preventDefault();
-      console.log(searchInput.value)
       let valueSearch = searchInput.value;
-      // search.replaceChildren();
       if (searchInput.value != "") {
          city.forEach(e => {
             if (e.name.toLowerCase().includes(valueSearch.toLowerCase())) {
@@ -254,14 +272,13 @@ document.addEventListener("click", (e) => {
 
 
    }
-
-
    city.forEach(el => {
       if (e.target.id == el.name) {
          getCityDatos({ lat: el.lat, long: el.long }).then(datos => {
             setPainelFeelsLike(datos, el.name);
             getDayWeek(datos, todayWeek);
-
+            getDailyForecast(datos);
+            console.log(e.target);
          })
       }
    })
@@ -284,30 +301,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
          getSelectHourly(dato);
-         console.log()
-
-         hourlySelect.addEventListener('change', (e) => {
-            document.querySelector('.box-hourly').textContent ="";
-            // e.preventDefault()
-            // templeteHourly.innerHTML = "";
-            console.log(e.target.value)
-            let codPosition = 0;
-            getDayWeek(dato, todayWeek).forEach((el) => {
-               if (e.target.value == el.id -1) {
-                     el.daysTemp.forEach(t => {
-                     let pmAm = (codPosition >=13 )? " PM": " AM";
-                     // console.log(el.cod[cont])
-                     templeteHourly.querySelector('img').src =getIconImg(el.cod[codPosition]);
-                     templeteHourly.querySelector('#hour-hourly').textContent = codPosition + pmAm;
-                     templeteHourly.querySelector('#temp-hourly').textContent = t+"º";
-                     let clone = d.importNode(templeteHourly, true);
-                     fragment.appendChild(clone);
-                     codPosition++;
-                  })
-                   document.querySelector('aside').appendChild(fragment);
-               }
-            })  
-         })
+         let firsOptToday = hourlySelect.querySelector('option').value;
+         createHourlyForecast(dato, firsOptToday);
+         hourlySelect.addEventListener('input', (e) => {
+               createHourlyForecast(dato, e.target.value); 
+            })
       } catch (err) {
          console.error(err);
       }

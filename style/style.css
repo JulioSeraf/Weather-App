@@ -258,6 +258,7 @@ main {
     border-radius: 10px;
     background-color: hsl(243, 23%, 24%);
     width: 90px;
+    font-size: 0.9rem;
 }
 .day-max{
     display: inline;
@@ -269,8 +270,9 @@ main {
 aside {
     /* position: relative; */
     width: 90%;
-    padding:0 10px;
-    height:45vh;
+    padding: 0 15px;
+    padding-bottom: 15px;
+    height:60vh;
     overflow: scroll;
     border-radius: 20px;
     background-color:hsl(243, 23%, 24%) ;
@@ -293,17 +295,16 @@ aside h3{
     font-weight: 500;
 }
 .nav-select{
-    /* border: 1px solid white; */
     position:sticky;
-    padding: 20px;
-    width: 100%;
+    padding: 20px 0;
+    margin-bottom: 10px;
     background-color: hsl(243, 23%, 24%);
-    top: 0;
+    top: 0%;
 }
 .box-hourly{
     display: flex;
-    gap: 15px;
-
+    flex-direction: column;
+    gap: 10px;
 }
 .div-hourly{
     align-items: center;
@@ -312,7 +313,6 @@ aside h3{
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px ;
     width: 100%;
-    margin: 10px 0;
     padding: 0 10px;
 }
 .div-hourly img{
