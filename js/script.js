@@ -29,7 +29,7 @@ async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
       let hereCity = await resCity.json();
-      let city = hereCity.city + ', ' + hereCity.countryName
+      let city = hereCity.city + ', ' + hereCity.countryName;
       return city;
    } catch (err) {
       console.error("Error de peticion " + er);
@@ -41,7 +41,6 @@ async function getCityDatos(el) {
    try {
       let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
       let json = await res.json();
-      console.log(json)
       let datos = {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
@@ -57,30 +56,16 @@ async function getCityDatos(el) {
       console.error("Error de peticion " + er);
    }
 }
-const city = [
-   {
-      name: 'Sevilla, España',
-      lat: 37.3828,
-      long: -5.9732
-   },
-   {
-      name: 'Cadiz, España',
-      lat: 36.5267,
-      long: 36.5267
-   },
-   {
-      name: 'Malaga, España',
-      lat: 36.7202,
-      long: -4.4203
-   },
-   {
-      name: 'Madrid, España',
-      lat: 40.4165,
-      long: 40.4165
+
+async function latLongProvincias() {
+   try {
+      const res = await fetch('citys.json');
+      const citys = res.json();
+      return citys;
+   } catch (err) {
+      console.error(err);
    }
-]
-
-
+}
 
 function setPainelFeelsLike(datos, nameCity) {
    for (let i = 0; i < datos.time.length; i++) {
@@ -170,16 +155,17 @@ function getDayWeek(datos, day) {
    }
    console.log(ordenSemana)
    return ordenSemana;
-   
-}
 
+}
 function getDailyForecast(datos) {
-   // d.querySelector('.div-daily').removeChild()
    getDayWeek(datos, todayWeek).forEach(el => {
+      let indexMax = el.daysTemp.indexOf();
+      let max = el.daysTemp.sort((a,b)=> a-b)[el.daysTemp.length - 1];
+      let min = el.daysTemp[0];
       templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0, 3);
-      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[0]);
-      templeteDaily.querySelector('.day-min').textContent = el.daysTemp.sort()[el.daysTemp.length - 1] + "º";
-      templeteDaily.querySelector('.day-max').textContent = el.daysTemp.sort()[0] + "º";
+      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[indexMax]);
+      templeteDaily.querySelector('.day-min').textContent = min + "º";
+      templeteDaily.querySelector('.day-max').textContent = max + "º";
       let clone = d.importNode(templeteDaily, true);
       fragment.appendChild(clone);
    })
@@ -226,7 +212,6 @@ function createHourlyForecast(dato, value) {
       if (value == el.id) {
          el.daysTemp.forEach(t => {
             let pmAm = (codPosition >= 13) ? " PM" : " AM";
-            // console.log(el.cod[cont])
             templeteHourly.querySelector('img').src = getIconImg(el.cod
             [codPosition]);
             templeteHourly.querySelector('#hour-hourly').textContent =
@@ -258,31 +243,32 @@ document.addEventListener("click", (e) => {
       e.preventDefault();
       let valueSearch = searchInput.value;
       if (searchInput.value != "") {
-         city.forEach(e => {
-            if (e.name.toLowerCase().includes(valueSearch.toLowerCase())) {
-               templeteCitys.querySelector("button").textContent = e.name;
-               templeteCitys.querySelector("button").id = e.name;
-               let clone = d.importNode(templeteCitys, true);
-               fragment.appendChild(clone);
-            }
+         latLongProvincias().then(citys => {
+            citys.forEach(e => {
+               if (e.name.toLowerCase().includes(valueSearch.toLowerCase())) {
+                  templeteCitys.querySelector("button").textContent = e.name;
+                  templeteCitys.querySelector("button").id = e.name;
+                  let clone = d.importNode(templeteCitys, true);
+                  fragment.appendChild(clone);
+               }
+            })
+            search.appendChild(fragment);
+            search.classList.add("onDisplay");
+
          })
-         search.appendChild(fragment);
-         search.classList.add("onDisplay");
       }
-
-
    }
-   city.forEach(el => {
-      if (e.target.id == el.name) {
-         getCityDatos({ lat: el.lat, long: el.long }).then(datos => {
-            setPainelFeelsLike(datos, el.name);
-            getDayWeek(datos, todayWeek);
-            getDailyForecast(datos);
-            console.log(e.target);
-         })
-      }
-   })
 
+   latLongProvincias().then(citys => {
+      citys.forEach(el => {
+         if (e.target.id == el.name) {
+            getCityDatos({ lat: el.lat, long: el.long }).then(datos => {
+               setPainelFeelsLike(datos, el.name);
+               getDailyForecast(datos);
+            })
+         }
+      })
+   })
 })
 
 
@@ -304,8 +290,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
          let firsOptToday = hourlySelect.querySelector('option').value;
          createHourlyForecast(dato, firsOptToday);
          hourlySelect.addEventListener('input', (e) => {
-               createHourlyForecast(dato, e.target.value); 
-            })
+            createHourlyForecast(dato, e.target.value);
+         })
       } catch (err) {
          console.error(err);
       }
