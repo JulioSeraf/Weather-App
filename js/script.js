@@ -159,11 +159,11 @@ function getDayWeek(datos, day) {
 }
 function getDailyForecast(datos) {
    getDayWeek(datos, todayWeek).forEach(el => {
-      let indexMax = el.daysTemp.indexOf();
-      let max = el.daysTemp.sort((a,b)=> a-b)[el.daysTemp.length - 1];
-      let min = el.daysTemp[0];
+      let max = Math.max(...el.daysTemp);
+      let indexMax = el.daysTemp.indexOf(max);
+      let min = Math.min(...el.daysTemp);
       templeteDaily.querySelector("#sigla-semanal").textContent = el.name.substring(0, 3);
-      templeteDaily.querySelector('img').src = getIconImg(datos.wCod[indexMax]);
+      templeteDaily.querySelector('img').src = getIconImg(el.cod[indexMax]);
       templeteDaily.querySelector('.day-min').textContent = min + "º";
       templeteDaily.querySelector('.day-max').textContent = max + "º";
       let clone = d.importNode(templeteDaily, true);
@@ -301,10 +301,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
    });
 
 })
-
-
-
-
 
 
 
