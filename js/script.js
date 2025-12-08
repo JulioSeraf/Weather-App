@@ -258,20 +258,27 @@ document.addEventListener("click", (e) => {
          })
       }
    }
-
-   latLongProvincias().then(citys => {
-      citys.forEach(el => {
-         if (e.target.id == el.name) {
-            getCityDatos({ lat: el.lat, long: el.long }).then(datos => {
-               setPainelFeelsLike(datos, el.name);
-               getDailyForecast(datos);
-            })
+   if (e.target.matches(".butCitys")) {
+      latLongProvincias().then(citys => {
+         cityFind:
+         for (let city of citys) {
+            if (e.target.id == city.name) {
+               getCityDatos({ lat: city.lat, long: city.long }).then(datos => {
+                  setPainelFeelsLike(datos, city.name);
+                  getDailyForecast(datos);
+                  let firsOptToday = hourlySelect.querySelector('option').value;
+                  createHourlyForecast(datos, firsOptToday)
+                  hourlySelect.addEventListener('input', (e) => {
+                     createHourlyForecast(datos, e.target.value);
+                  })
+               })
+               break cityFind;
+            }
          }
       })
-   })
+   }
+
 })
-
-
 
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
