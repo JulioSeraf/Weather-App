@@ -31,8 +31,10 @@ i {
     margin: 15px 10px;
 }
 
-header #units-but {
+#units-but {
     display: flex;
+    justify-content: center;
+    align-items: center;
     float: right;
     width: 100px;
     margin: 15px 10px;
@@ -54,7 +56,7 @@ header>nav {
     width: 250px;
     border: 1px solid var(--bordeColor);
     border-radius: 10px;
-    padding: 0 10px;
+    padding: 10px;
     background-color: hsl(243, 23%, 30%);
     z-index: 2;
 }
@@ -86,10 +88,10 @@ header nav div p {
     color: hsl(240, 6%, 70%);
     font-size: 0.9em;
 }
-
-header h1 {
+ h1 {
+    /* border: 1px solid white; */
     font-size: 3rem;
-    width: 80%;
+    width: 300px;
     margin: auto;
     line-height: 1.1;
     text-align: center;
@@ -103,7 +105,7 @@ header h1 {
     height: 10vh;
 }
 
-#search-box form {
+form {
     position: relative;
     display: flex;
     flex-direction: column;
