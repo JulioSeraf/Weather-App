@@ -25,6 +25,23 @@
         max-width: 150px;
 
     }
+    main{
+        float: left;
+        padding: 0;
+        width: 60%;
+        height: 100%;
+    }
+    .fundo-p{
+        display: none;
+    }
+    .fundo-g{
+        display: block;
+        margin: auto;
+    }
+    aside{
+        width: 30%;
+        height: 100%;
+    }
     
 
 }

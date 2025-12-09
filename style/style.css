@@ -156,6 +156,7 @@ main {
     gap: 20px;
 }
 
+
 #painel-box {
     position: relative;
     width: 100%;
@@ -165,7 +166,9 @@ main {
     height:35vh;
     margin: 5px auto;
 }
-
+.fundo-g{
+    display: none;
+}
 #painel-box>.fundo-p {
     width: 90%;
     max-width: 375px;
