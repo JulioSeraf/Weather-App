@@ -26,9 +26,11 @@
 
     }
     main{
-        float: left;
+        /* border: 1px solid white; */
         padding: 0;
-        width: 60%;
+        /* float: left; */
+        /* margin-left:100px; */
+        width: 40%;
         height: 100%;
     }
     .fundo-p{
@@ -38,7 +40,13 @@
         display: block;
         margin: auto;
     }
+    #info-box{
+        border: 1px solid white;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
     aside{
+        margin: 0;
         width: 30%;
         height: 100%;
     }
