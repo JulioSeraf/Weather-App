@@ -1,11 +1,12 @@
 @media (min-width:700px) {
     body{
+        display: flex;
+        flex-direction: column;
         width: 90%;
         margin: auto;
     }
     header{
-        padding: 20px;
-        min-height: 30vh;
+        padding: 20px 0;
     }
     #units-but{
         width: 120px;
@@ -19,29 +20,35 @@
         flex-direction: row;
         justify-content: center;
         gap: 15px;
-        min-height: 15vh;
+        max-width: none;
     }
     form input{
         width: 35%;
         min-width:300px;
-        height: 50px;
+        height: 40px;
         margin: auto;
     }
     #search-but{
         width: 15%;
-        height: 50px;
+        height: 40px;
         max-width: 150px;
 
     }
+    
     main{
-        width: 65%;
-        border: 1px solid white;
+        flex-direction: row;
+        max-width:1500px;
         float: left;
-        padding: 0 15px;
-        height: 100vh;
+        align-items:start;
+        padding:40px 15px;
+        height: 105vh;
+    }
+    .box-section{
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
     }
     #painel-box{
-        border: 1px solid white;
         width: 100%;
         min-width: 400px;
         /* margin: 0 10px; */
@@ -71,36 +78,50 @@
         height: 30%;
     }
     .temp-info>p {
-        font-size:clamp(5rem, 9vw,9rem);
+        font-size:clamp(4rem, 7vw,7.5rem);
         font-weight: 700;
     }
     #info-box{
+        border: 1px solid white;
         flex-wrap: nowrap;
         width: 100%;
-        gap: 30px;
+        gap: 20px;
     }
     #info-box>div{
-        height: 120px;
+        padding: 10px;
+        min-width: 120px;
+        min-height: 110px;
     }
     #info-box .p-info-texto{
-        font-size: 1.1rem;
+        font-size: 1rem;
      }
 
     #info-box .p-info-unid{
-        font-size:clamp(1.3em,2vw,3em);
+        font-size:clamp(1.3em,2.5vw,3em);
         font-weight: light;
+    }
+    .div-daily{
+        border: 1px solid white;
+        flex-wrap: nowrap;
+    }
+    .week-days-info {
+        width: auto;
     }
     aside h3{
         font-size: clamp(1em, 1.5vw, 1.5em);
     }
     aside{
         margin:0;
-        max-width: 30%;
+        max-width: 500px;
         min-width: 250px;
-        max-height: 100vh;
+        height: 100%;
     }
     #hourly-select{
-
+        height: 35px;
+    }
+    footer{
+        display: block;
+        width: 100vw;
     }
 
 }

@@ -62,78 +62,81 @@
     </form>
   </nav>
   <main>
-    <section id="painel-box">
-      <img class="fundo-p" src="assets/images/
+    <div class="box-section">
+      <section id="painel-box">
+        <img class="fundo-p" src="assets/images/
 bg-today-small.svg" alt="fundo imagem">
-      <img class="fundo-g" src="assets/images/
+        <img class="fundo-g" src="assets/images/
 bg-today-large.svg" alt="fundo imagem">
-      <div class="painel-info">
-        <div class="texto-info">
-          <h3 id="painel-city"></h3>
-          <p id="painel-week"></p>
+        <div class="painel-info">
+          <div class="texto-info">
+            <h3 id="painel-city"></h3>
+            <p id="painel-week"></p>
+          </div>
+          <div class="temp-info">
+            <img id="painel-img" src="" alt="">
+            <p id="painel-temp"></p>
+          </div>
         </div>
-        <div class="temp-info">
-          <img id="painel-img" src="" alt="">
-          <p id="painel-temp"></p>
+      </section>
+      <section id="info-box">
+        <div>
+          <p class="p-info-texto">Feels Like</p>
+          <p class="p-info-unid" id="feels">00</p>
         </div>
+        <div>
+          <p class="p-info-texto">Humidity</p>
+          <p class="p-info-unid" id="humidity">00</p>
+        </div>
+        <div>
+          <p class="p-info-texto">Wind</p>
+          <p class="p-info-unid" id="wind">00</p>
+        </div>
+        <div>
+          <p class="p-info-texto">Precipitation</p>
+          <p class="p-info-unid" id="precipitation">00</p>
+        </div>
+      </section>
+      <section id="daily-box">
+        <h3>
+          Daily forecast
+        </h3>
+        <div class="div-daily">
+          <template id="daily-templete">
+            <div class="week-days-info">
+              <p id="sigla-semanal">
+              </p>
+              <img src="#" alt="#">
+              <p class="day-max"></p>
+              <p class="day-min"></p>
+            </div>
+          </template>
+        </div>
+      </section>
+    </div>
+
+    <aside>
+      <div class="nav-select">
+        <h3>Hourly forecast</h3>
+        <select id="hourly-select">
+          <template id="opt-hourly">
+            <option class="opts" value=""></option>
+          </template>
+        </select>
       </div>
-    </section>
-    <section id="info-box">
-      <div>
-        <p class="p-info-texto">Feels Like</p>
-        <p class="p-info-unid" id="feels">00</p>
-      </div>
-      <div>
-        <p class="p-info-texto">Humidity</p>
-        <p class="p-info-unid" id="humidity">00</p>
-      </div>
-      <div>
-        <p class="p-info-texto">Wind</p>
-        <p class="p-info-unid" id="wind">00</p>
-      </div>
-      <div>
-        <p class="p-info-texto">Precipitation</p>
-        <p class="p-info-unid" id="precipitation">00</p>
-      </div>
-    </section>
-    <section id="daily-box">
-      <h3>
-        Daily forecast
-      </h3>
-      <div class="div-daily">
-        <template id="daily-templete">
-          <div class="week-days-info">
-            <p id="sigla-semanal">
-            </p>
-            <img src="#" alt="#">
-            <p class="day-max"></p>
-            <p class="day-min"></p>
+      <div class="box-hourly">
+        <template id="hourly-templete">
+          <div class="div-hourly">
+            <div class="div-img-hourly">
+              <img src="" alt="">
+              <p id="hour-hourly"></p>
+            </div>
+            <p id="temp-hourly"></p>
           </div>
         </template>
       </div>
-    </section>
+    </aside>
   </main>
-  <aside>
-    <div class="nav-select">
-      <h3>Hourly forecast</h3>
-      <select id="hourly-select">
-        <template id="opt-hourly">
-          <option class="opts" value=""></option>
-        </template>
-      </select>
-    </div>
-    <div class="box-hourly">
-      <template id="hourly-templete">
-        <div class="div-hourly">
-          <div class="div-img-hourly">
-            <img src="" alt="">
-            <p id="hour-hourly"></p>
-          </div>
-          <p id="temp-hourly"></p>
-        </div>
-      </template>
-    </div>
-  </aside>
   <footer class="attribution">
     <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by
       <a href="https://github.com/JulioSeraf" target="_blank">Julio Serafim</a>.

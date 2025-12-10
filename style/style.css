@@ -12,20 +12,22 @@ body {
     color: white;
     font-family: "DM Sans", sans-serif;
 }
-
-body>* {
-    width: 95%;
+body > *{
+    width: 90%;
     margin: auto;
 }
-body  *::-webkit-scrollbar{
+
+body *::-webkit-scrollbar {
     border-radius: 10px;
     width: 5px;
     background: transparent;
 }
-body  *::-webkit-scrollbar-thumb{
-  background-color:var(--bordeColor);
-  
+
+body *::-webkit-scrollbar-thumb {
+    background-color: var(--bordeColor);
+
 }
+
 header {
     min-height: 30vh;
 }
@@ -93,7 +95,8 @@ header nav div p {
     color: hsl(240, 6%, 70%);
     font-size: 0.9em;
 }
- h1 {
+
+h1 {
     /* border: 1px solid white; */
     font-size: 3rem;
     width: 300px;
@@ -113,7 +116,7 @@ form {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    max-width: 400px;
     margin: auto;
 }
 
@@ -141,6 +144,7 @@ form {
     max-height: 300px;
     overflow-y: scroll;
 }
+
 .search-opt button {
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
@@ -152,9 +156,17 @@ form {
 }
 
 /* MAIN=========================== */
+.box-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 15px 0;
     gap: 20px;
 }
@@ -162,19 +174,19 @@ main {
 
 #painel-box {
     position: relative;
-    width: 100%;
     margin: auto;
     min-height: 320px;
-    
 }
-.fundo-g{
+
+.fundo-g {
     display: none;
 }
+
 #painel-box>.fundo-p {
     position: absolute;
     transform: translate(-50%);
     left: 50%;
-    width: 90%;
+    object-fit: cover;
     max-width: 400px;
     min-height: 320px;
     z-index: -1;
@@ -191,7 +203,6 @@ main {
 }
 
 .painel-info h3 {
-    border: 1px solid white;
     width: 300px;
     font-weight: 700;
     text-align: center;
@@ -199,7 +210,6 @@ main {
 }
 
 .painel-info #painel-week {
-    border: 1px solid white;
     text-align: center;
     color: rgba(255, 255, 255, 0.63);
 }
@@ -230,13 +240,17 @@ main {
     flex-wrap: wrap;
     min-height: 20vh;
     gap: 10px;
+    width: 100%;
     margin: auto;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 #info-box>* {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background: hsl(243, 23%, 24%);
-    width: 45%;
+    width: 48%;
     height: 80px;
     padding: 10px 20px;
     border-radius: 10px;
@@ -246,14 +260,15 @@ main {
 #daily-box {
     display: flex;
     flex-direction: column;
-    width:90%;
     /* height: fit-content; */
     margin: auto;
 }
-#daily-box h3{
+
+#daily-box h3 {
     padding-bottom: 10px;
     font-weight: 500;
 }
+
 .div-daily {
     width: 100%;
     display: flex;
@@ -262,10 +277,12 @@ main {
     gap: 15px;
     flex-wrap: wrap;
 }
-#sigla-semanal{
+
+#sigla-semanal {
     text-align: center;
     font-weight: 400;
 }
+
 .week-days-info {
     padding: 10px;
     border-radius: 10px;
@@ -273,35 +290,38 @@ main {
     width: 90px;
     font-size: 0.9rem;
 }
-.day-max{
+
+.day-max {
     display: inline;
 }
-.day-min{
+
+.day-min {
     display: inline;
     float: right;
 }
+
 aside {
     /* position: relative; */
-    width: 90%;
     padding: 0 15px;
     padding-bottom: 15px;
-    min-height:600px;
-    max-height: 60vh;
+    min-height: 600px;
+    height: 60vh;
     overflow-y: scroll;
     border-radius: 20px;
-    background-color:hsl(243, 23%, 24%) ;
+    background-color: hsl(243, 23%, 24%);
+    border-bottom: 20px solid hsl(243, 23%, 24%);
+
 }
-aside h3{
+
+aside h3 {
     display: inline-block;
-    border: 1px solid white;
-    /* font-size: 1.3em; */
     font-weight: 500;
     color: hsl(250, 6%, 84%);
 }
-#hourly-select{
+
+#hourly-select {
     display: inline-block;
-    float: right;
-    background-color: hsl(243, 23%, 30%) ;
+    background-color: hsl(243, 23%, 30%);
     color: black;
     border-radius: 10px;
     padding: 5px;
@@ -309,45 +329,56 @@ aside h3{
     color: hsl(250, 6%, 84%);
     font-weight: 500;
 }
-.nav-select{
-    position:sticky;
+
+.nav-select {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
     padding: 20px 0;
     margin-bottom: 10px;
     background-color: hsl(243, 23%, 24%);
     top: 0%;
 }
-.box-hourly{
+
+.box-hourly {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
-.div-hourly{
+
+.div-hourly {
     align-items: center;
     justify-content: space-between;
     display: flex;
     background-color: hsl(243, 23%, 30%);
-    border-radius: 10px ;
+    border-radius: 8px;
     width: 100%;
-    padding: 0 10px;
+    padding: 5px 10px;
 }
-.div-hourly img{
+
+.div-hourly img {
     width: 20%;
 }
-.div-img-hourly{
+
+.div-img-hourly {
     display: flex;
     justify-items: center;
     align-items: center;
 }
+
 footer {
     /* padding: 20px; */
     font-size: 0.8em;
     text-align: center;
     height: 3vh;
 }
-footer p{
+
+footer p {
     padding: 10px;
 }
-footer a{
+
+footer a {
     font-style: italic;
     font-weight: 700;
 }
