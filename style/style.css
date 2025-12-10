@@ -20,10 +20,11 @@ body>* {
 body  *::-webkit-scrollbar{
     border-radius: 10px;
     width: 5px;
-    background: var(--bordeColor) ;
+    background: transparent;
 }
 body  *::-webkit-scrollbar-thumb{
-  background-color:hsl(243, 23%, 30%);
+  background-color:var(--bordeColor);
+  
 }
 header {
     min-height: 30vh;
