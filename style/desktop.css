@@ -35,13 +35,16 @@
     }
     main{
         width: 65%;
+        border: 1px solid white;
         float: left;
         padding: 0 15px;
-        /* height: 100vh; */
+        height: 100vh;
     }
     #painel-box{
-        max-width: 100%;
-        min-height:300px;
+        border: 1px solid white;
+        width: 100%;
+        min-width: 400px;
+        /* margin: 0 10px; */
     }
     .fundo-p{
         display: none;
@@ -50,8 +53,8 @@
         position: absolute;
         display: block;
         width: 100%;
-        height: 300px;
-        object-fit: cover;
+        height: 100%;
+        object-fit:cover;
         border-radius: 10px;
         margin: auto;
         z-index: -1;
@@ -68,31 +71,36 @@
         height: 30%;
     }
     .temp-info>p {
-        font-size:clamp(5rem, 8vw,9rem);
+        font-size:clamp(5rem, 9vw,9rem);
         font-weight: 700;
     }
     #info-box{
-        border: 1px solid white;
         flex-wrap: nowrap;
         width: 100%;
         gap: 30px;
     }
     #info-box>div{
-        height: 100px;
-    
+        height: 120px;
     }
     #info-box .p-info-texto{
-        font-size: 1.3rem;
+        font-size: 1.1rem;
      }
 
     #info-box .p-info-unid{
-        font-size: 2rem;
+        font-size:clamp(1.3em,2vw,3em);
+        font-weight: light;
+    }
+    aside h3{
+        font-size: clamp(1em, 1.5vw, 1.5em);
     }
     aside{
-        margin: 0;
-        width: 30%;
-        max-height: 80vh;
+        margin:0;
+        max-width: 30%;
+        min-width: 250px;
+        max-height: 100vh;
     }
-    
+    #hourly-select{
+
+    }
 
 }
