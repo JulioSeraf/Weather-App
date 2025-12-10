@@ -7,22 +7,26 @@
 
 
 body {
-    min-height: 100vh;
-    min-width: 375px;
+    min-width: 400px;
     background: hsl(243, 96%, 9%);
     color: white;
     font-family: "DM Sans", sans-serif;
-
 }
 
 body>* {
     width: 95%;
     margin: auto;
 }
-
+body  *::-webkit-scrollbar{
+    border-radius: 10px;
+    width: 5px;
+    background: var(--bordeColor) ;
+}
+body  *::-webkit-scrollbar-thumb{
+  background-color:hsl(243, 23%, 30%);
+}
 header {
-    min-height: 250px;
-    height: 30vh;
+    min-height: 30vh;
 }
 
 i {
@@ -101,8 +105,7 @@ header nav div p {
 
 /* NAV======================= */
 #search-box {
-    min-height: 100px;
-    height: 10vh;
+    min-height: 10vh;
 }
 
 form {
@@ -135,9 +138,8 @@ form {
     z-index: 1;
     min-height: 100px;
     max-height: 300px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
-
 .search-opt button {
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
@@ -160,34 +162,37 @@ main {
 #painel-box {
     position: relative;
     width: 100%;
-    left: 50%;
-    transform: translate(-50%);
-    min-width: 375px;
-    height:35vh;
-    margin: 5px auto;
+    margin: auto;
+    max-width: 400px;
+    min-height: 320px;
+    
 }
 .fundo-g{
     display: none;
 }
 #painel-box>.fundo-p {
+    position: absolute;
+    transform: translate(-50%);
+    left: 50%;
     width: 90%;
-    max-width: 375px;
-    margin: auto;
+    max-width: 400px;
+    min-height: 320px;
+    z-index: -1;
 
 }
 
-#painel-box>.painel-info {
-    position: absolute;
-    width: 90%;
-    transform: translate(-50%);
-    left: 50%;
-    top: 30px;
-    text-align: center;
+.painel-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 320px;
 }
 
 .painel-info h3 {
+    font-weight: 700;
     font-size: 1.5em;
-    /* font: ; */
 }
 
 .painel-info>p {
@@ -195,22 +200,20 @@ main {
 }
 
 .temp-info {
-    /* border: 1px solid white; */
     display: flex;
     justify-content: space-around;
-    margin: auto;
+    justify-items: center;
+    align-items: center;
     margin-top: 20px;
     max-width: 350px;
 }
 
 .temp-info>img {
-    /* border: 1px solid white; */
     display: inline;
     width: 45%;
 }
 
 .temp-info>p {
-    /* border: 1px solid white; */
     padding-top: 15px;
     font-size: 5em;
     display: inline-block;
@@ -218,8 +221,10 @@ main {
 }
 
 #info-box {
+    border: 1px solid white;
     display: flex;
     flex-wrap: wrap;
+    min-height: 20vh;
     gap: 10px;
     margin: auto;
     justify-content: space-evenly;
@@ -238,7 +243,7 @@ main {
     display: flex;
     flex-direction: column;
     width:90%;
-    height: fit-content;
+    /* height: fit-content; */
     margin: auto;
 }
 #daily-box h3{
@@ -276,7 +281,8 @@ aside {
     width: 90%;
     padding: 0 15px;
     padding-bottom: 15px;
-    height:60vh;
+    min-height:600px;
+    max-height: 60vh;
     overflow: scroll;
     border-radius: 20px;
     background-color:hsl(243, 23%, 24%) ;
@@ -326,11 +332,6 @@ aside h3{
     display: flex;
     justify-items: center;
     align-items: center;
-}
-#hour-hourly{
-    
-}
-#temp-hourly{
 }
 footer {
     /* padding: 20px; */

@@ -1,54 +1,97 @@
-@media (min-width:600px) {
+@media (min-width:700px) {
     body{
+        width: 90%;
+        margin: auto;
     }
     header{
-        padding: 30px;
+        padding: 20px;
+        min-height: 30vh;
     }
     #units-but{
-        width: 125px;
+        width: 120px;
+        padding: 0 15px;
     }
     h1{
-        padding-top: 50px;
+        padding-top: 10px;
         width: 80%;
     }
     form{
         flex-direction: row;
         justify-content: center;
         gap: 15px;
+        min-height: 15vh;
     }
     form input{
         width: 35%;
+        min-width:300px;
+        height: 50px;
         margin: auto;
     }
     #search-but{
         width: 15%;
+        height: 50px;
         max-width: 150px;
 
     }
     main{
-        /* border: 1px solid white; */
-        padding: 0;
-        /* float: left; */
-        /* margin-left:100px; */
-        width: 40%;
-        height: 100%;
+        width: 65%;
+        float: left;
+        padding: 0 15px;
+        /* height: 100vh; */
+    }
+    #painel-box{
+        max-width: 100%;
+        min-height:300px;
     }
     .fundo-p{
         display: none;
     }
     .fundo-g{
+        position: absolute;
         display: block;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
         margin: auto;
+        z-index: -1;
+    }
+    .painel-info{
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 15px;
+    }
+    .texto-info{
+    }
+    .temp-info>img{
+        width: 30%;
+        height: 30%;
+    }
+    .temp-info>p {
+        font-size:clamp(5rem, 8vw,9rem);
+        font-weight: 700;
     }
     #info-box{
         border: 1px solid white;
         flex-wrap: nowrap;
         width: 100%;
+        gap: 30px;
+    }
+    #info-box>div{
+        height: 100px;
+    
+    }
+    #info-box .p-info-texto{
+        font-size: 1.3rem;
+     }
+
+    #info-box .p-info-unid{
+        font-size: 2rem;
     }
     aside{
         margin: 0;
         width: 30%;
-        height: 100%;
+        max-height: 80vh;
     }
     
 
