@@ -75,10 +75,10 @@ function setPainelFeelsLike(datos, nameCity) {
          painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0, 3), date);
          painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
          painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
-         feelsLikeP.textContent = datos.feelsL[i];
-         humidityP.textContent = datos.humity[i];
-         precP.textContent = datos.prec[i];
-         windP.textContent = datos.windS[i];
+         feelsLikeP.textContent = datos.feelsL[i] + "º";
+         humidityP.textContent = datos.humity[i] + "%";
+         precP.textContent = datos.prec[i] + " mm";
+         windP.textContent = datos.windS[i] + " km/h";
 
       }
    }
