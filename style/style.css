@@ -17,7 +17,14 @@ body>* {
     width: 95%;
     margin: auto;
 }
-
+body  *::-webkit-scrollbar{
+    border-radius: 10px;
+    width: 5px;
+    background: var(--bordeColor) ;
+}
+body  *::-webkit-scrollbar-thumb{
+  background-color:hsl(243, 23%, 30%);
+}
 header {
     min-height: 30vh;
 }
@@ -131,9 +138,8 @@ form {
     z-index: 1;
     min-height: 100px;
     max-height: 300px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
-
 .search-opt button {
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
