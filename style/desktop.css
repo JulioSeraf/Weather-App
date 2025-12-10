@@ -1,5 +1,47 @@
-@media (min-width:600px){
-    aside{
-        float: right;
+@media (min-width:700px) {
+    body{
     }
+    header{
+        padding: 30px;
+    }
+    #units-but{
+        width: 125px;
+    }
+    h1{
+        padding-top: 50px;
+        width: 80%;
+    }
+    form{
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+    }
+    form input{
+        width: 35%;
+        margin: auto;
+    }
+    #search-but{
+        width: 15%;
+        max-width: 150px;
+
+    }
+    main{
+        float: left;
+        padding: 0;
+        width: 60%;
+        height: 100%;
+    }
+    .fundo-p{
+        display: none;
+    }
+    .fundo-g{
+        display: block;
+        margin: auto;
+    }
+    aside{
+        width: 30%;
+        height: 100%;
+    }
+    
+
 }

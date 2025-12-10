@@ -8,7 +8,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/syle.css">
+  <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/desktop.css">
   <title>Frontend Mentor | Weather app</title>
 
@@ -47,7 +47,7 @@
       </div>
     </nav>
     <h1>
-      How's the <br> sky looking <br> today?
+      How's the sky looking today?
     </h1>
   </header>
   <nav id="search-box">
@@ -56,13 +56,17 @@
       <div class="search-opt" id="search-opt">
       </div>
       <template id="search-citys">
-        <button class="butCitys" id=""></button>
+        <button id=""></button>
       </template>
       <button id="search-but">Search</button>
     </form>
   </nav>
   <main>
     <section id="painel-box">
+      <img class="fundo-p" src="assets/images/
+bg-today-small.svg" alt="fundo imagem">
+      <img class="fundo-g" src="assets/images/
+bg-today-large.svg" alt="fundo imagem">
       <div class="painel-info">
         <h3 id="painel-city"></h3>
         <p id="painel-week"></p>
@@ -71,7 +75,6 @@
           <p id="painel-temp"></p>
         </div>
       </div>
-      <img class="fundo-p" src="assets/images/bg-today-small.svg" alt="fundo imagem">
     </section>
     <section id="info-box">
       <div>
@@ -119,14 +122,14 @@
     </div>
     <div class="box-hourly">
       <template id="hourly-templete">
-      <div class="div-hourly">
-        <div class="div-img-hourly">
-          <img src="" alt="">
-          <p id="hour-hourly"></p>
+        <div class="div-hourly">
+          <div class="div-img-hourly">
+            <img src="" alt="">
+            <p id="hour-hourly"></p>
+          </div>
+          <p id="temp-hourly"></p>
         </div>
-        <p id="temp-hourly"></p>
-      </div>
-    </template>
+      </template>
     </div>
   </aside>
   <footer class="attribution">
