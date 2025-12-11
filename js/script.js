@@ -39,9 +39,15 @@ async function getNameCity(el) {
 
 async function getCityDatos(el) {
    try {
-      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
-      let json = await res.json();
-      let datos = {
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
+
+      if(!res.ok){
+         throw new Error(`Error HTTP ${res.status} ${res.statusText}`);
+      }
+      const json = await res.json();
+
+      if(!json.hourly) throw new Error('Api no devolvió los datos');
+      return {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
@@ -50,20 +56,20 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-
-      return datos;
    } catch (er) {
-      console.error("Error de peticion " + er);
+      console.error('Eroor en la petición',er.message);
    }
 }
 
 async function latLongProvincias() {
    try {
       const res = await fetch('citys.json');
+      if(!res.ok) throw new Error(`Error HTTP: ${res.status} ${res.statusText}`);
       const citys = res.json();
+      if(citys == undefined) throw new Error('Archivo json no encontrado');
       return citys;
    } catch (err) {
-      console.error(err);
+      console.error('ERROR en la petición',err);
    }
 }
 
@@ -153,7 +159,6 @@ function getDayWeek(datos, day) {
          conDay++;
       }
    }
-   console.log(ordenSemana)
    return ordenSemana;
 
 }
