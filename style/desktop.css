@@ -1,9 +1,49 @@
-@media (min-width:700px) {
+@media (min-width:450px) {
+#painel-box{
+    width: 100%;
+}
+.fundo-p{
+    display: none;
+}
+.fundo-g{
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    border-radius: 10px;
+    margin: auto;
+    z-index: -1;
+}
+.temp-info{
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 90%;
+}
+.temp-info>img{
+   align-self: center;
+   width: 35%;
+   height: auto;
+   
+}
+.temp-info>p {
+    font-size:clamp(4rem, 12vw,12rem);
+    font-weight: 700;
+}
+aside{
+    width: 90%;
+    max-width: 730px;
+}
+
+    
+}
+@media (min-width:1000px) {
     body{
         display: flex;
         flex-direction: column;
-        width: 90%;
+        width: 100%;
         margin: auto;
+        min-height: 100vh;
     }
     header{
         padding: 20px 0;
@@ -37,18 +77,19 @@
     
     main{
         flex-direction: row;
-        max-width:1500px;
-        float: left;
         align-items:start;
-        padding:40px 15px;
-        height: 105vh;
+        padding:15px;
+        min-height: fit-content;
     }
     .box-section{
         display: flex;
+        height: 100%;
         gap: 10px;
+        width: 90%;
         flex-direction: column;
     }
     #painel-box{
+        padding: 0;
         width: 100%;
         min-width: 400px;
         /* margin: 0 10px; */
@@ -82,15 +123,13 @@
         font-weight: 700;
     }
     #info-box{
-        border: 1px solid white;
         flex-wrap: nowrap;
-        width: 100%;
         gap: 20px;
     }
     #info-box>div{
-        padding: 10px;
-        min-width: 120px;
-        min-height: 110px;
+        padding: 15px;
+        min-width: 155px;
+        min-height: 130px;
     }
     #info-box .p-info-texto{
         font-size: 1rem;
@@ -98,10 +137,11 @@
 
     #info-box .p-info-unid{
         font-size:clamp(1.3em,2.5vw,3em);
-        font-weight: light;
+        font-weight: 300;
+    }
+    #daily-box{
     }
     .div-daily{
-        border: 1px solid white;
         flex-wrap: nowrap;
     }
     .week-days-info {
@@ -114,14 +154,22 @@
         margin:0;
         max-width: 500px;
         min-width: 250px;
-        height: 100%;
+        min-height: 500px;
+        height: 690px;
     }
     #hourly-select{
         height: 35px;
     }
     footer{
         display: block;
+        height: 5vh;
         width: 100vw;
     }
 
+}
+@media (min-width:1500px) {
+    aside{
+        height:850px;
+    }
+    
 }

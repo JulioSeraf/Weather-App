@@ -7,6 +7,8 @@
 
 
 body {
+    display: flex;
+    flex-direction: column;
     min-width: 400px;
     background: hsl(243, 96%, 9%);
     color: white;
@@ -16,6 +18,7 @@ body > *{
     width: 90%;
     margin: auto;
 }
+
 
 body *::-webkit-scrollbar {
     border-radius: 10px;
@@ -27,26 +30,26 @@ body *::-webkit-scrollbar-thumb {
     background-color: var(--bordeColor);
 
 }
-
-header {
-    min-height: 30vh;
+button:hover, select:hover{
+    background-color: var(--bordeColor);
+    cursor: pointer;
 }
-
 i {
     display: inline-block;
     width: 150px;
     margin: 15px 10px;
 }
 
-#units-but {
+.units-buts {
     display: flex;
     justify-content: center;
     align-items: center;
     float: right;
+    padding:0 10px;
+    border: none;
     width: 100px;
     margin: 15px 10px;
-    border-radius: 10px;
-    border: 3px solid hsl(243, 23%, 30%);
+    border-radius: 5px;
     background: hsl(243, 23%, 30%);
 }
 
@@ -97,7 +100,6 @@ header nav div p {
 }
 
 h1 {
-    /* border: 1px solid white; */
     font-size: 3rem;
     width: 300px;
     margin: auto;
@@ -108,16 +110,13 @@ h1 {
 }
 
 /* NAV======================= */
-#search-box {
-    min-height: 10vh;
-}
 
 form {
     position: relative;
     display: flex;
     flex-direction: column;
     max-width: 400px;
-    margin: auto;
+    margin: 20px auto 0 auto;
 }
 
 #search-box form>* {
@@ -144,23 +143,21 @@ form {
     max-height: 300px;
     overflow-y: scroll;
 }
+.search-opt button:hover{
+    background-color: var(--bordeColor);
+}
 
 .search-opt button {
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
+    border: none;
     padding: 5px;
 }
-
 #search-box #search-but {
     background: hsl(233, 67%, 56%);
 }
 
 /* MAIN=========================== */
-.box-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
 
 main {
     display: flex;
@@ -169,12 +166,18 @@ main {
     align-items: center;
     padding: 15px 0;
     gap: 20px;
+    margin: 10px auto;
 }
 
+.box-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 #painel-box {
     position: relative;
-    margin: auto;
+    margin:0 auto;
     min-height: 320px;
 }
 
@@ -238,7 +241,6 @@ main {
 #info-box {
     display: flex;
     flex-wrap: wrap;
-    min-height: 20vh;
     gap: 10px;
     width: 100%;
     margin: auto;
@@ -300,8 +302,7 @@ main {
     float: right;
 }
 
-aside {
-    /* position: relative; */
+aside { 
     padding: 0 15px;
     padding-bottom: 15px;
     min-height: 600px;
@@ -348,13 +349,13 @@ aside h3 {
 }
 
 .div-hourly {
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    display: flex;
     background-color: hsl(243, 23%, 30%);
     border-radius: 8px;
     width: 100%;
-    padding: 5px 10px;
+    padding: 0px 10px;
 }
 
 .div-hourly img {
