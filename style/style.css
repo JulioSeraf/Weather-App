@@ -78,14 +78,23 @@ header>nav>* {
 }
 
 header>nav button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     background-color: hsl(243, 23%, 30%);
     border-radius: 10px;
-    border: none;
     font-weight: 500;
+    border: none;
     padding: 5px;
     text-align: left;
 }
-
+header>nav button span {
+    width: 90%;
+}
+header>nav button i{
+    width: fit-content;
+}
 header>nav button:hover {
     background-color: var(--bordeColor);
 }
