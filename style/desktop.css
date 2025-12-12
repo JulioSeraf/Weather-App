@@ -22,12 +22,12 @@
 }
 .temp-info>img{
    align-self: center;
-   width: 35%;
+   width: 25%;
    height: auto;
    
 }
 .temp-info>p {
-    font-size:clamp(4rem, 12vw,12rem);
+    font-size:clamp(5rem, 10.5vw,7rem);
     font-weight: 700;
 }
 aside{
@@ -46,7 +46,7 @@ aside{
         min-height: 100vh;
     }
     header{
-        padding: 20px 0;
+        padding: 20px 40px;
     }
     #units-but{
         width: 120px;
@@ -168,6 +168,10 @@ aside{
 
 }
 @media (min-width:1500px) {
+    header>nav{
+        right: 2%;
+        width: 400px;
+    }
     aside{
         height:850px;
     }

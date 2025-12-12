@@ -16,6 +16,7 @@
 
 <body>
   <header>
+
     <i><img src="assets/images/logo.svg" alt="logo"></i>
     <button class="units-buts" id="units-but">
       <img src="assets/images/icon-units.svg" alt="">
@@ -51,11 +52,11 @@
         <button><span>Inches (in)</span> <i><img src="assets/images/icon-checkmark.svg" alt="icon-checkmark"></i></button>
       </div>
     </nav>
-    <h1>
+    <h1 class="painel-error">
       How's the sky looking today?
     </h1>
   </header>
-  <nav id="search-box">
+  <nav id="search-box"  class="painel-error">
     <form action="js/script.js">
       <input id="search-input" type="search" placeholder="Search for a place..." autocomplete="off">
       <div class="search-opt" id="search-opt">
@@ -142,6 +143,12 @@ bg-today-large.svg" alt="fundo imagem">
       </div>
     </aside>
   </main>
+  <span id="painel-error">
+    <img src="assets/images/icon-error.svg" alt="icon-error">
+    <h2>Something went wrong</h2>
+    <p>we couldn't connect to the server (API error). Please try again in a few moments.</p>
+    <button id="retry"><i><img src="assets/images/icon-retry.svg" alt="icon-retry"></i><p>Retry</p></button>
+  </span>
   <footer class="attribution">
     <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by
       <a href="https://github.com/JulioSeraf" target="_blank">Julio Serafim</a>.

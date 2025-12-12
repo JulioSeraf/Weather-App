@@ -4,18 +4,23 @@
     --bordeColor: hsla(240, 18%, 48%, 0.765);
 }
 
-
-
+html{
+    width: 100vw;
+    height: fit-content;
+}
 body {
     display: flex;
     flex-direction: column;
-    min-width: 400px;
+    min-width: 300px;
+    min-height: 100vh;
+    padding-top: 30px;
     background: hsl(243, 96%, 9%);
     color: white;
     font-family: "DM Sans", sans-serif;
 }
 body > *{
     width: 90%;
+    box-sizing: border-box;
     margin: auto;
 }
 
@@ -34,10 +39,15 @@ button:hover, select:hover{
     background-color: var(--bordeColor);
     cursor: pointer;
 }
-i {
+header{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+header > i {
     display: inline-block;
     width: 150px;
-    margin: 15px 10px;
+    
 }
 
 .units-buts {
@@ -48,7 +58,6 @@ i {
     padding:0 10px;
     border: none;
     width: 100px;
-    margin: 15px 10px;
     border-radius: 5px;
     background: hsl(243, 23%, 30%);
 }
@@ -111,6 +120,7 @@ header nav div p {
 h1 {
     font-size: 3rem;
     width: 300px;
+    padding: 20px 0;
     margin: auto;
     line-height: 1.1;
     text-align: center;
@@ -121,6 +131,7 @@ h1 {
 /* NAV======================= */
 
 form {
+    
     position: relative;
     display: flex;
     flex-direction: column;
@@ -198,8 +209,8 @@ main {
     position: absolute;
     transform: translate(-50%);
     left: 50%;
+    border-radius: 10px;
     object-fit: cover;
-    max-width: 400px;
     min-height: 320px;
     z-index: -1;
 
@@ -395,4 +406,45 @@ footer a {
 
 .onDisplay {
     display: flex;
+}
+
+.off-painel{
+   opacity: 0;
+   visibility: 0;
+}
+#painel-error{
+    display: none;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+#painel-error > img{
+    min-width: 30px;
+    width: 4%;
+}
+#painel-error > h2{
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 700;
+    padding: 10px 0;
+}
+#painel-error >  p{
+    text-align: center;
+    width: 60%;
+}
+#painel-error button{
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+    border: none;
+    margin-top: 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    gap: 8px;
+    background-color: hsl(243, 23%, 24%);
+}
+#painel-error button img{
+    width: 90%;
 }
