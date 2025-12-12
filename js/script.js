@@ -266,14 +266,18 @@ document.addEventListener("click", (e) => {
                }
             })
             d.body.querySelector('main').classList.remove('off-painel');
+            d.getElementById('no-found').style.display = "none";
+
             search.replaceChildren(fragment);
             search.classList.add("onDisplay");
             console.log(search.children.length)
-            if(search.children.length == 0){
+            if (search.children.length == 0) {
                d.body.querySelector('main').classList.add('off-painel');
+               d.getElementById('no-found').style.display = "block";
+                search.classList.remove('onDisplay');
             }
          })
-         
+
       }
    }
    if (e.target.matches(".butCitys")) {
