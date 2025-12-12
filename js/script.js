@@ -57,6 +57,10 @@ async function getCityDatos(el) {
          humity: json.hourly.relative_humidity_2m
       }
    } catch (er) {
+      d.body.querySelector('main').classList.add('off-painel');
+      d.body.querySelector('h1').classList.add('off-painel');
+      d.body.querySelector('#search-box').classList.add('off-painel');
+      d.getElementById('painel-error').style.display = "flex";
       console.error('Eroor en la petición',er.message);
    }
 }
@@ -69,6 +73,7 @@ async function latLongProvincias() {
       if(citys == undefined) throw new Error('Archivo json no encontrado');
       return citys;
    } catch (err) {
+      
       console.error('ERROR en la petición',err);
    }
 }
@@ -234,16 +239,19 @@ function createHourlyForecast(dato, value) {
 
 document.addEventListener("click", (e) => {
 
-   if (e.target.matches("#units-but  *")) {
+   if (e.target.closest("#units-but")) {
       navImMe.classList.toggle("onDisplay");
    }
 
    if (!e.target.matches("#search-but")) {
       search.classList.remove("onDisplay");
       search.replaceChildren();
+
    }
 
-
+   if(e.target.closest('#retry')){
+      window.location.reload();
+   }
    if (e.target.matches("#search-but")) {
       e.preventDefault();
       let valueSearch = searchInput.value;
@@ -257,7 +265,7 @@ document.addEventListener("click", (e) => {
                   fragment.appendChild(clone);
                }
             })
-            search.appendChild(fragment);
+            search.replaceChildren(fragment);
             search.classList.add("onDisplay");
 
          })
