@@ -35,7 +35,10 @@ async function getNameCity(el) {
       console.error("Error de peticion " + er);
    }
 }
-
+function setMeasures(measures){
+   // return `${}`
+}
+// &wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch
 
 async function getCityDatos(el) {
    try {
@@ -236,7 +239,17 @@ function createHourlyForecast(dato, value) {
    })
 
 }
-
+// navImMe.querySelectorAll('button').forEach(but => {
+//    but.addEventListener('click',(e)=>{
+//       if(e.target.closest('#kmh')){}
+//       if(e.target.closest('#mph')){}
+//       if(e.target.closest('#millimeters')){}
+//       if(e.target.closest('#inches')){}
+//       if(e.target.closest('#cels')){}
+//       if(e.target.closest('#fah')){}
+//       if(e.target.closest('#comple-measures')){}
+//       })
+// })
 document.addEventListener("click", (e) => {
 
    if (e.target.closest("#units-but")) {
