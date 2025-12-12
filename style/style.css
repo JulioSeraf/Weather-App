@@ -40,9 +40,10 @@ button:hover, select:hover{
     cursor: pointer;
 }
 header{
-    position: relative;
+    box-sizing: border-box;
     width: 100%;
-    padding: 20px;
+    padding:0 20px;
+
 }
 header > i {
     display: inline-block;
