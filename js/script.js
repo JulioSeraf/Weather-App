@@ -234,7 +234,7 @@ function createHourlyForecast(dato, value) {
 
 document.addEventListener("click", (e) => {
 
-   if (e.target.matches("#units-but *")) {
+   if (e.target.matches("#units-but  *")) {
       navImMe.classList.toggle("onDisplay");
    }
 

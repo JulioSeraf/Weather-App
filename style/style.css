@@ -4,8 +4,6 @@
     --bordeColor: hsla(240, 18%, 48%, 0.765);
 }
 
-
-
 body {
     display: flex;
     flex-direction: column;
@@ -52,7 +50,9 @@ i {
     border-radius: 5px;
     background: hsl(243, 23%, 30%);
 }
-
+header{
+    border: 1px solid white;
+}
 header #units-but * {
     flex-grow: 1;
     padding: 3px;
