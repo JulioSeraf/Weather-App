@@ -62,6 +62,10 @@ aside{
         gap: 15px;
         max-width: none;
     }
+    .search-opt{
+        top: 90%;
+        max-width: 800px;
+    }
     form input{
         width: 35%;
         min-width:300px;

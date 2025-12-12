@@ -41,12 +41,12 @@ async function getCityDatos(el) {
    try {
       const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
 
-      if(!res.ok){
+      if (!res.ok) {
          throw new Error(`Error HTTP ${res.status} ${res.statusText}`);
       }
       const json = await res.json();
 
-      if(!json.hourly) throw new Error('Api no devolvió los datos');
+      if (!json.hourly) throw new Error('Api no devolvió los datos');
       return {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
@@ -61,20 +61,20 @@ async function getCityDatos(el) {
       d.body.querySelector('h1').classList.add('off-painel');
       d.body.querySelector('#search-box').classList.add('off-painel');
       d.getElementById('painel-error').style.display = "flex";
-      console.error('Eroor en la petición',er.message);
+      console.error('Eroor en la petición', er.message);
    }
 }
 
 async function latLongProvincias() {
    try {
       const res = await fetch('citys.json');
-      if(!res.ok) throw new Error(`Error HTTP: ${res.status} ${res.statusText}`);
+      if (!res.ok) throw new Error(`Error HTTP: ${res.status} ${res.statusText}`);
       const citys = res.json();
-      if(citys == undefined) throw new Error('Archivo json no encontrado');
+      if (citys == undefined) throw new Error('Archivo json no encontrado');
       return citys;
    } catch (err) {
-      
-      console.error('ERROR en la petición',err);
+
+      console.error('ERROR en la petición', err);
    }
 }
 
@@ -249,7 +249,7 @@ document.addEventListener("click", (e) => {
 
    }
 
-   if(e.target.closest('#retry')){
+   if (e.target.closest('#retry')) {
       window.location.reload();
    }
    if (e.target.matches("#search-but")) {
@@ -265,10 +265,15 @@ document.addEventListener("click", (e) => {
                   fragment.appendChild(clone);
                }
             })
+            d.body.querySelector('main').classList.remove('off-painel');
             search.replaceChildren(fragment);
             search.classList.add("onDisplay");
-
+            console.log(search.children.length)
+            if(search.children.length == 0){
+               d.body.querySelector('main').classList.add('off-painel');
+            }
          })
+         
       }
    }
    if (e.target.matches(".butCitys")) {
