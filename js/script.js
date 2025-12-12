@@ -24,7 +24,8 @@ let latitude, logitud,
    windSpeed = null,
    precipitation = null,
    hours = null,
-   fullDate = new Date().toDateString();
+   fullDate = new Date().toDateString(),
+   measuresGrupo = {wspeed:"&wind_speed_unit=mph",fah:"&temperature_unit=fahrenheit",inchie:"&precipitation_unit=inch"};
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
@@ -38,7 +39,7 @@ async function getNameCity(el) {
 function setMeasures(measures){
    // return `${}`
 }
-// &wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch
+// 
 
 async function getCityDatos(el) {
    try {
@@ -250,6 +251,7 @@ function createHourlyForecast(dato, value) {
 //       if(e.target.closest('#comple-measures')){}
 //       })
 // })
+
 document.addEventListener("click", (e) => {
 
    if (e.target.closest("#units-but")) {
