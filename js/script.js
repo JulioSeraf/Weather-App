@@ -286,7 +286,6 @@ document.addEventListener("click", (e) => {
 
             search.replaceChildren(fragment);
             search.classList.add("onDisplay");
-            console.log(search.children.length)
             if (search.children.length == 0) {
                d.body.querySelector('main').classList.add('off-painel');
                d.getElementById('no-found').style.display = "block";
@@ -304,8 +303,7 @@ document.addEventListener("click", (e) => {
                getCityDatos({ lat: city.lat, long: city.long }).then(datos => {
                   setPainelFeelsLike(datos, city.name);
                   getDailyForecast(datos);
-                  let firsOptToday = hourlySelect.querySelector('option').value;
-                  createHourlyForecast(datos, firsOptToday)
+                  createHourlyForecast(datos,todayWeek);
                   hourlySelect.addEventListener('input', (e) => {
                      createHourlyForecast(datos, e.target.value);
                   })
@@ -332,8 +330,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
          getSelectHourly(dato);
-         let firsOptToday = hourlySelect.querySelector('option').value;
-         createHourlyForecast(dato, firsOptToday);
+         createHourlyForecast(dato, todayWeek);
          hourlySelect.addEventListener('input', (e) => {
             createHourlyForecast(dato, e.target.value);
          })
