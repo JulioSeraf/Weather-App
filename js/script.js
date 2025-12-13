@@ -303,6 +303,7 @@ document.addEventListener("click", (e) => {
                getCityDatos({ lat: city.lat, long: city.long }).then(datos => {
                   setPainelFeelsLike(datos, city.name);
                   getDailyForecast(datos);
+                  getSelectHourly(datos);
                   createHourlyForecast(datos,todayWeek);
                   hourlySelect.addEventListener('input', (e) => {
                      createHourlyForecast(datos, e.target.value);
