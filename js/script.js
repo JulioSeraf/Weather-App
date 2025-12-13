@@ -25,7 +25,7 @@ let latitude, logitud,
    precipitation = null,
    hours = null,
    fullDate = new Date().toDateString(),
-   measuresGrupo = {wspeed:"&wind_speed_unit=mph",fah:"&temperature_unit=fahrenheit",inchie:"&precipitation_unit=inch"};
+   measuresGrupo = ["&wind_speed_unit=mph","&temperature_unit=fahrenheit","&precipitation_unit=inch"];
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
@@ -43,7 +43,7 @@ function setMeasures(measures){
 
 async function getCityDatos(el) {
    try {
-      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code${measuresGrupo.join("")}`);
 
       if (!res.ok) {
          throw new Error(`Error HTTP ${res.status} ${res.statusText}`);
@@ -89,11 +89,11 @@ function setPainelFeelsLike(datos, nameCity) {
          painelInfo.querySelector("#painel-city").textContent = nameCity;
          painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0, 3), date);
          painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
-         painelInfo.querySelector("#painel-temp").textContent = datos.temp[i] + "º";
-         feelsLikeP.textContent = datos.feelsL[i] + "º";
+         painelInfo.querySelector("#painel-temp").textContent =Math.round(datos.temp[i]) + "º";
+         feelsLikeP.textContent = Math.round(datos.feelsL[i]) + "º";
          humidityP.textContent = datos.humity[i] + "%";
          precP.textContent = datos.prec[i] + " mm";
-         windP.textContent = datos.windS[i] + " km/h";
+         windP.textContent = Math.round(datos.windS[i]) + " km/h";
 
       }
    }
@@ -163,7 +163,7 @@ function getDayWeek(datos, day) {
 
    for (let i = 0; i < datos.temp.length; i++) {
       ordenSemana[conDay].cod.push(datos.wCod[i]);
-      ordenSemana[conDay].daysTemp.push(datos.temp[i]);
+      ordenSemana[conDay].daysTemp.push(Math.round(datos.temp[i]));
       if (ordenSemana[conDay].daysTemp.length == 24) {
          conDay++;
       }
@@ -240,17 +240,18 @@ function createHourlyForecast(dato, value) {
    })
 
 }
-// navImMe.querySelectorAll('button').forEach(but => {
-//    but.addEventListener('click',(e)=>{
-//       if(e.target.closest('#kmh')){}
-//       if(e.target.closest('#mph')){}
-//       if(e.target.closest('#millimeters')){}
-//       if(e.target.closest('#inches')){}
-//       if(e.target.closest('#cels')){}
-//       if(e.target.closest('#fah')){}
-//       if(e.target.closest('#comple-measures')){}
-//       })
-// })
+navImMe.querySelectorAll('button').forEach(but => {
+   but.addEventListener('click',(e)=>{
+      if(e.target.closest('#kmh')){
+      }
+      if(e.target.closest('#mph')){}
+      if(e.target.closest('#millimeters')){}
+      if(e.target.closest('#inches')){}
+      if(e.target.closest('#cels')){}
+      if(e.target.closest('#fah')){}
+      if(e.target.closest('#comple-measures')){}
+      })
+})
 
 document.addEventListener("click", (e) => {
 

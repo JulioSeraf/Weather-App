@@ -249,12 +249,12 @@ main {
 
 .temp-info>img {
     display: inline;
-    width: 45%;
+    width: 35%;
 }
 
 .temp-info>p {
     padding-top: 15px;
-    font-size: 5em;
+    font-size: 6em;
     display: inline-block;
     font-weight: 500;
 }
@@ -310,7 +310,7 @@ main {
     padding: 10px;
     border-radius: 10px;
     background-color: hsl(243, 23%, 24%);
-    width: 90px;
+    width: 100px;
     font-size: 0.9rem;
 }
 

@@ -170,10 +170,23 @@ aside{
     }
 
 }
-@media (min-width:1500px) {
+@media (min-width:2000px) {
     header>nav{
         right: 2%;
         width: 400px;
+    }
+    .painel-info h3 {
+        width: 100%;
+        font-size: 2.5rem;
+    }
+    .painel-info p{
+        font-size: 1.5rem;
+    }
+    .temp-info p{
+        font-size: 10rem;
+    }
+    .week-days-info {
+        font-size: 2rem;
     }
     aside{
         height:850px;
