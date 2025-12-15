@@ -19,7 +19,7 @@ const d = document,
    todayHrs = new Date().getHours(),
    todayDay = new Date().getDate(),
    todayWeek = new Date().getDay();
-
+console.log(todayWeek)
 let latitude, logitud,
    temperature = null,
    windSpeed = null,
@@ -39,53 +39,9 @@ async function getNameCity(el) {
 }
 
 
-function measures (valor){
-   const iconCheck = document.createElement('img');
-   iconCheck.setAttribute('src','assets/images/icon-checkmark.svg');
-   iconCheck.setAttribute('alt',"icon-Checkmark");
-   console.log();
-   let feelsCels = feelsLikeP.textContent;
-   let precMil = precP.textContent;
-   let wSpeedKmh = windP.textContent;
-   let feelsFah = (Number.parseInt(feelsLikeP.textContent) * 9 / 5)+32;
-   let wSpeedMph = Number.parseInt(windP.textContent)  * 0.621371;
-   let precIn = Number.parseInt(precP.textContent) / 25.4;
-
-   switch(valor){
-      case "kmh":{
-          windP.textContent = wSpeedMph + " mph";
-
-      }
-      break;
-   }
-   if(valor == "hmh"){
-      windP.textContent = wSpeedMph + " mph";
-   }
-}
-
-navImMe.querySelectorAll('button').forEach(but => {
-   but.addEventListener('click', (e) => {
-      if (e.target.closest('#kmh')) {
-         measuresGrupo.forEach((el,i) => {
-            if(el == "&wind_speed_unit=mph") measuresGrupo.splice(i,1);
-         })
-      }
-      if (e.target.closest('#mph')) { 
-         feelsLikeP.textContent 
-      }
-      if (e.target.closest('#millimeters')) { }
-      if (e.target.closest('#inches')) { }
-      if (e.target.closest('#cels')) { }
-      if (e.target.closest('#fah')) { }
-      if (e.target.closest('#comple-measures')) { }
-      console.log(measuresGrupo);
-   })
-   
-})
-
-
 async function getCityDatos(el) {
    try {
+
       const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${el.lat}&longitude=${el.long}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation&hourly=weather_code`);
 
       if (!res.ok) {
@@ -93,8 +49,9 @@ async function getCityDatos(el) {
       }
       const json = await res.json();
 
+
       if (!json.hourly) throw new Error('Api no devolvió los datos');
-      return {
+      let citys = {
          time: json.hourly.time,
          temp: json.hourly.temperature_2m,
          prec: json.hourly.precipitation,
@@ -103,6 +60,9 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
+
+
+      return citys
    } catch (er) {
       d.body.querySelector('main').classList.add('off-painel');
       d.body.querySelector('h1').classList.add('off-painel');
@@ -189,7 +149,7 @@ function getDayWeek(datos, day) {
 
       },
       {
-         id: 7,
+         id: 0,
          name: "Sunday",
          daysTemp: [],
          cod: []
@@ -228,6 +188,33 @@ function getDailyForecast(datos) {
    })
    d.querySelector('.div-daily').replaceChildren(fragment);
 }
+function unitsChange() {
+
+   navImMe.querySelectorAll('button').forEach(but => {
+      but.addEventListener('click', (e) => {
+         console.log('o')
+         if (e.target.closest('#kmh')) {
+
+
+         }
+         if (e.target.closest('#mph')) {
+
+         }
+         if (e.target.closest('#millimeters')) { }
+         if (e.target.closest('#inches')) { }
+         if (e.target.closest('#cels')) {
+
+         }
+         if (e.target.closest('#fah')) {
+            datos.temp.forEach(el => el = (el * 9 / 5) + 32);
+            console.log(datos.temp)
+         }
+         if (e.target.closest('#comple-measures')) { }
+      })
+   })
+}
+
+
 
 
 
@@ -284,6 +271,7 @@ function createHourlyForecast(dato, value) {
 
 }
 
+
 document.addEventListener("click", (e) => {
 
    if (e.target.closest("#units-but")) {
@@ -332,6 +320,8 @@ document.addEventListener("click", (e) => {
          for (let city of citys) {
             if (e.target.id == city.name) {
                getCityDatos({ lat: city.lat, long: city.long }).then(datos => {
+                  sessionStorage.setItem('citys', JSON.stringify(datos));
+                  sessionStorage.setItem('name', city.name)
                   setPainelFeelsLike(datos, city.name);
                   getDailyForecast(datos);
                   getSelectHourly(datos);
@@ -339,6 +329,10 @@ document.addEventListener("click", (e) => {
                   hourlySelect.addEventListener('input', (e) => {
                      createHourlyForecast(datos, e.target.value);
                   })
+
+
+                  console.log(feelsLikeP.textContent)
+
                })
                break cityFind;
             }
@@ -347,7 +341,7 @@ document.addEventListener("click", (e) => {
    }
 
 })
-
+unitsChange()
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
@@ -357,8 +351,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
          long: long
       }
       try {
-         const dato = await getCityDatos(cord);
-         const name = await getNameCity(cord);
+         let dato = await getCityDatos(cord);
+         let name = await getNameCity(cord);
+         if (sessionStorage.getItem('citys') != null) {
+            dato = JSON.parse(sessionStorage.getItem('citys'));
+            name = sessionStorage.getItem('name');
+         }
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
          getSelectHourly(dato);
@@ -366,7 +364,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
          hourlySelect.addEventListener('input', (e) => {
             createHourlyForecast(dato, e.target.value);
          })
-         measures()
+
+         console.log(feelsLikeP.textContent)
       } catch (err) {
          console.error(err);
       }
