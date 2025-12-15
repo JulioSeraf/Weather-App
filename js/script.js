@@ -1,4 +1,4 @@
-
+import { unitsChange } from "../js/conversor.js";
 const d = document,
    unitsBut = d.getElementById('units-but'),
    formSearch = d.getElementById('search'),
@@ -38,6 +38,7 @@ async function getNameCity(el) {
    }
 }
 
+unitsChange(navImMe)
 
 async function getCityDatos(el) {
    try {
@@ -61,6 +62,7 @@ async function getCityDatos(el) {
          humity: json.hourly.relative_humidity_2m
       }
 
+      citys = unitsChange(navImMe,citys);
 
       return citys
    } catch (er) {
@@ -84,7 +86,6 @@ async function latLongProvincias() {
       console.error('ERROR en la petición', err);
    }
 }
-
 function setPainelFeelsLike(datos, nameCity) {
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
@@ -188,35 +189,6 @@ function getDailyForecast(datos) {
    })
    d.querySelector('.div-daily').replaceChildren(fragment);
 }
-function unitsChange() {
-
-   navImMe.querySelectorAll('button').forEach(but => {
-      but.addEventListener('click', (e) => {
-         console.log('o')
-         if (e.target.closest('#kmh')) {
-
-
-         }
-         if (e.target.closest('#mph')) {
-
-         }
-         if (e.target.closest('#millimeters')) { }
-         if (e.target.closest('#inches')) { }
-         if (e.target.closest('#cels')) {
-
-         }
-         if (e.target.closest('#fah')) {
-            datos.temp.forEach(el => el = (el * 9 / 5) + 32);
-            console.log(datos.temp)
-         }
-         if (e.target.closest('#comple-measures')) { }
-      })
-   })
-}
-
-
-
-
 
 function getIconImg(valor) {
    let imgTemp = "";
@@ -341,7 +313,6 @@ document.addEventListener("click", (e) => {
    }
 
 })
-unitsChange()
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
