@@ -60,7 +60,7 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-   
+      unitsChange(citys);
       return citys
    } catch (er) {
       d.body.querySelector('main').classList.add('off-painel');

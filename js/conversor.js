@@ -1,4 +1,4 @@
-export function unitsChange() {
+export function unitsChange(citys) {
     const navImMe = document.getElementById('nav-imp-met');
     const kmh = document.getElementById('kmh');
     const mph = document.getElementById('mph');
@@ -8,7 +8,6 @@ export function unitsChange() {
     const fah = document.getElementById('fah');
     const measuresSwitch = document.getElementById('switch-measures');
     const iconCheck = document.createElement('img');
-    // let datos = JSON.parse(sessionStorage.getItem('fechCitys'));
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
@@ -61,4 +60,6 @@ export function unitsChange() {
             // window.location.reload();
 
         })
-    })}
+    })
+    // crear filtro de datos aqui
+}
