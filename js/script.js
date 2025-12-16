@@ -19,7 +19,6 @@ const d = document,
    todayHrs = new Date().getHours(),
    todayDay = new Date().getDate(),
    todayWeek = new Date().getDay();
-console.log(todayWeek)
 let latitude, logitud,
    temperature = null,
    windSpeed = null,
@@ -188,35 +187,6 @@ function getDailyForecast(datos) {
    })
    d.querySelector('.div-daily').replaceChildren(fragment);
 }
-function unitsChange() {
-
-   navImMe.querySelectorAll('button').forEach(but => {
-      but.addEventListener('click', (e) => {
-         console.log('o')
-         if (e.target.closest('#kmh')) {
-
-
-         }
-         if (e.target.closest('#mph')) {
-
-         }
-         if (e.target.closest('#millimeters')) { }
-         if (e.target.closest('#inches')) { }
-         if (e.target.closest('#cels')) {
-
-         }
-         if (e.target.closest('#fah')) {
-            datos.temp.forEach(el => el = (el * 9 / 5) + 32);
-            console.log(datos.temp)
-         }
-         if (e.target.closest('#comple-measures')) { }
-      })
-   })
-}
-
-
-
-
 
 function getIconImg(valor) {
    let imgTemp = "";
@@ -330,9 +300,6 @@ document.addEventListener("click", (e) => {
                      createHourlyForecast(datos, e.target.value);
                   })
 
-
-                  console.log(feelsLikeP.textContent)
-
                })
                break cityFind;
             }
@@ -341,7 +308,7 @@ document.addEventListener("click", (e) => {
    }
 
 })
-unitsChange()
+
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
@@ -365,7 +332,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
             createHourlyForecast(dato, e.target.value);
          })
 
-         console.log(feelsLikeP.textContent)
       } catch (err) {
          console.error(err);
       }
