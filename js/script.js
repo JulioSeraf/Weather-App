@@ -1,4 +1,4 @@
-
+import { unitsChange } from "../js/conversor.js";
 const d = document,
    unitsBut = d.getElementById('units-but'),
    formSearch = d.getElementById('search'),
@@ -37,6 +37,7 @@ async function getNameCity(el) {
    }
 }
 
+unitsChange(navImMe)
 
 async function getCityDatos(el) {
    try {
@@ -60,6 +61,7 @@ async function getCityDatos(el) {
          humity: json.hourly.relative_humidity_2m
       }
 
+      citys = unitsChange(navImMe,citys);
 
       return citys
    } catch (er) {
@@ -83,7 +85,6 @@ async function latLongProvincias() {
       console.error('ERROR en la petición', err);
    }
 }
-
 function setPainelFeelsLike(datos, nameCity) {
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
@@ -308,7 +309,7 @@ document.addEventListener("click", (e) => {
    }
 
 })
-
+unitsChange()
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;

@@ -452,3 +452,6 @@ footer a {
     text-align: center;
     padding:20px 0 ;
 }
+.off-check{
+    display: none;
+}
