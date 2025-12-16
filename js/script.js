@@ -60,11 +60,8 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-      sessionStorage.setItem('fechCitys', JSON.stringify(citys));
-      let converDatos = JSON.parse(sessionStorage.getItem('fechCitys'));
-      console.log(converDatos)
    
-      return converDatos;
+      return citys
    } catch (er) {
       d.body.querySelector('main').classList.add('off-painel');
       d.body.querySelector('h1').classList.add('off-painel');

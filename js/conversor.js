@@ -8,7 +8,7 @@ export function unitsChange() {
     const fah = document.getElementById('fah');
     const measuresSwitch = document.getElementById('switch-measures');
     const iconCheck = document.createElement('img');
-    let datos = JSON.parse(sessionStorage.getItem('fechCitys'));
+    // let datos = JSON.parse(sessionStorage.getItem('fechCitys'));
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
@@ -21,14 +21,10 @@ export function unitsChange() {
                 marckChange(kmh, mph);
             }
             if (e.target.closest('#mph')) {
-                datos.windS = datos.windS.map(el => el * 0.621371)
-                sessionStorage.setItem('fechCitys',JSON.stringify(datos));
                 marckChange(mph, kmh);
             }
             if (e.target.closest('#millimeters')) {
                 marckChange(millim, inches);
-                datos.prec = datos.prec.map(el => el * 25.4);
-
             }
             if (e.target.closest('#inches')) {
                 marckChange(inches, millim);
