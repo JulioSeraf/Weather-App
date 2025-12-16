@@ -37,8 +37,8 @@ async function getNameCity(el) {
    }
 }
 
-unitsChange(navImMe)
 
+unitsChange();
 async function getCityDatos(el) {
    try {
 
@@ -60,10 +60,11 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-
-      citys = unitsChange(navImMe,citys);
-
-      return citys
+      sessionStorage.setItem('fechCitys', JSON.stringify(citys));
+      let converDatos = JSON.parse(sessionStorage.getItem('fechCitys'));
+      console.log(converDatos)
+   
+      return converDatos;
    } catch (er) {
       d.body.querySelector('main').classList.add('off-painel');
       d.body.querySelector('h1').classList.add('off-painel');
@@ -309,7 +310,6 @@ document.addEventListener("click", (e) => {
    }
 
 })
-unitsChange()
 window.addEventListener("DOMContentLoaded", (e) => {
    navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;

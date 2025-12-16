@@ -24,15 +24,15 @@
       <img src="assets/images/icon-dropdown.svg" alt="">
     </button>
     <nav id="nav-imp-met">
-      <button id="switch-measures">
+      <button data-activo="true" id="switch-measures">
         Switch to Imperial/Metric
       </button>
       <div>
         <p>Temperature</p>
         <button id="cels"> <span>Celsius (°C)</span><img src="assets/images/icon-checkmark.svg"
-              alt="icon-checkmark"></button>
+            alt="icon-checkmark"></button>
         <button id="fah"><span>Fahrenheit (°F)</span>
-        <img class="off-check"  src="assets/images/icon-checkmark.svg" alt="icon-checkmark"></button>
+          <img class="off-check measuresUSA" src="assets/images/icon-checkmark.svg" alt="icon-checkmark"></button>
       </div>
       <div>
         <p> Wind Speed</p>
@@ -41,22 +41,24 @@
         </button>
         <button id="mph">
           <span> mph</span>
-          <img class="off-check"  src="assets/images/icon-checkmark.svg" alt="icon-checkmark">
-        </butto>
+          <img class="off-check measuresUSA" src="assets/images/icon-checkmark.svg" alt="icon-checkmark">
+          </butto>
       </div>
       <div>
         <p>Precipitation</p>
-        <button id="millimeters"><span>Millimeters (mm)</span><img src="assets/images/icon-checkmark.svg" alt="icon-checkmark">
+        <button id="millimeters"><span>Millimeters (mm)</span><img src="assets/images/icon-checkmark.svg"
+            alt="icon-checkmark">
         </button>
 
-        <button id="inches"><span>Inches (in)</span><img class="off-check"src="assets/images/icon-checkmark.svg" alt="icon-checkmark"></button>
+        <button id="inches"><span>Inches (in)</span><img class="off-check measuresUSA"  src="assets/images/icon-checkmark.svg"
+            alt="icon-checkmark"></button>
       </div>
     </nav>
     <h1 class="painel-error">
       How's the sky looking today?
     </h1>
   </header>
-  <nav id="search-box"  class="painel-error">
+  <nav id="search-box" class="painel-error">
     <form action="js/script.js">
       <input id="search-input" type="search" placeholder="Search for a place..." autocomplete="off">
       <div class="search-opt" id="search-opt">
@@ -78,7 +80,7 @@ bg-today-large.svg" alt="fundo imagem">
         <div class="painel-info">
           <div class="texto-info">
             <h3 id="painel-city"></h3>
-            <p id="painel-week" ></p>
+            <p id="painel-week"></p>
           </div>
           <div class="temp-info">
             <img id="painel-img" src="" alt="">
@@ -148,7 +150,9 @@ bg-today-large.svg" alt="fundo imagem">
     <img src="assets/images/icon-error.svg" alt="icon-error">
     <h2>Something went wrong</h2>
     <p>we couldn't connect to the server (API error). Please try again in a few moments.</p>
-    <button id="retry"><i><img src="assets/images/icon-retry.svg" alt="icon-retry"></i><p>Retry</p></button>
+    <button id="retry"><i><img src="assets/images/icon-retry.svg" alt="icon-retry"></i>
+      <p>Retry</p>
+    </button>
   </span>
   <footer class="attribution">
     <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by

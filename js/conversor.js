@@ -1,4 +1,5 @@
-export function unitsChange(navImMe,citys) {
+export function unitsChange() {
+    const navImMe = document.getElementById('nav-imp-met');
     const kmh = document.getElementById('kmh');
     const mph = document.getElementById('mph');
     const millim = document.getElementById('millimeters');
@@ -7,41 +8,61 @@ export function unitsChange(navImMe,citys) {
     const fah = document.getElementById('fah');
     const measuresSwitch = document.getElementById('switch-measures');
     const iconCheck = document.createElement('img');
-    let datos = JSON.parse(sessionStorage.getItem('citys'));
-    let extraUrl = sessionStorage.getItem('extraUrl');; 
-    
-    function marckChange(el1, el2) {
-        el1.querySelector('img').classList.toggle('off-check');
-        el2.querySelector('img').classList.toggle('off-check');
+    let datos = JSON.parse(sessionStorage.getItem('fechCitys'));
+    function marckChange(elAdd, elDel) {
+        if (elAdd.querySelector('img').classList.contains('off-check')) {
+            elAdd.querySelector('img').classList.remove('off-check');
+        }
+        elDel.querySelector('img').classList.add('off-check');
     }
     navImMe.querySelectorAll('button').forEach(but => {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
-                marckChange(kmh,mph);
-                citys.windS = citys.windS.map(el => el * 0.621371)
-                console.log(citys)
+                marckChange(kmh, mph);
             }
             if (e.target.closest('#mph')) {
-                  marckChange(kmh,mph);
+                datos.windS = datos.windS.map(el => el * 0.621371)
+                sessionStorage.setItem('fechCitys',JSON.stringify(datos));
+                marckChange(mph, kmh);
             }
             if (e.target.closest('#millimeters')) {
                 marckChange(millim, inches);
+                datos.prec = datos.prec.map(el => el * 25.4);
+
             }
             if (e.target.closest('#inches')) {
-                marckChange(millim, inches);
+                marckChange(inches, millim);
             }
             if (e.target.closest('#cels')) {
-                marckChange(cels,fah);
+                marckChange(cels, fah);
             }
             if (e.target.closest('#fah')) {
-                marckChange(cels,fah);
-                
+                marckChange(fah, cels);
+
             }
             if (e.target.closest('#switch-measures')) {
-                let total = navImMe.querySelectorAll('img');
-                total.forEach(el => el.classList.toggle('off-check'))
+                if (e.target.dataset.activo == 'false') {
+                    e.target.dataset.activo = 'true';
+                    navImMe.querySelectorAll('img').forEach(el => {
+                        if (el.classList.contains('measuresUSA')) {
+                            el.classList.add('off-check');
+                        } else {
+                            el.classList.remove('off-check');
+                        }
+                    })
+                } else {
+                    e.target.dataset.activo = 'false';
+                    navImMe.querySelectorAll('img').forEach(el => {
+                        if (el.classList.contains('measuresUSA')) {
+                            el.classList.remove('off-check');
+                        } else {
+                            el.classList.add('off-check');
+                        }
+
+                    })
+                }
             }
+            // window.location.reload();
+
         })
-    })
-    return citys;
-}
+    })}
