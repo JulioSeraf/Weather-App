@@ -38,7 +38,6 @@ async function getNameCity(el) {
 }
 
 
-unitsChange();
 async function getCityDatos(el) {
    try {
 
