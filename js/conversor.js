@@ -1,4 +1,4 @@
-export function unitsChange(citys) {
+export function unitsChange(citys,name) {
     const navImMe = document.getElementById('nav-imp-met');
     const kmh = document.getElementById('kmh');
     const mph = document.getElementById('mph');
@@ -8,6 +8,17 @@ export function unitsChange(citys) {
     const fah = document.getElementById('fah');
     const measuresSwitch = document.getElementById('switch-measures');
     const iconCheck = document.createElement('img');
+    let listener = [];
+    let proxyCity = new Proxy(citys,{
+        set(target, props, value ){
+           target[props] = value;
+            listener.forEach(func => {
+                func(target);
+            })
+            return true;
+        }
+    })
+
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
@@ -18,6 +29,7 @@ export function unitsChange(citys) {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
                 marckChange(kmh, mph);
+
             }
             if (e.target.closest('#mph')) {
                 marckChange(mph, kmh);
@@ -57,9 +69,20 @@ export function unitsChange(citys) {
                     })
                 }
             }
-            // window.location.reload();
+            
 
+            if (cels.querySelector('img').classList.contains('off-check')) {
+                console.log('si')
+                proxyCity.temp = citys.temp.map(el => el * 2)
+            }
         })
+
     })
-    // crear filtro de datos aqui
+    
+    return {
+        state: proxyCity,
+        subscribe(func){
+            listener.push(func)
+        }
+    };
 }

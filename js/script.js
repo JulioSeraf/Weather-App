@@ -19,12 +19,7 @@ const d = document,
    todayHrs = new Date().getHours(),
    todayDay = new Date().getDate(),
    todayWeek = new Date().getDay();
-let latitude, logitud,
-   temperature = null,
-   windSpeed = null,
-   precipitation = null,
-   hours = null,
-   fullDate = new Date().toDateString(),
+let fullDate = new Date().toDateString(),
    measuresGrupo = ["&temperature_unit=fahrenheit", "&precipitation_unit=inch"];
 async function getNameCity(el) {
    try {
@@ -59,8 +54,9 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-      unitsChange(citys);
-      return citys
+      
+      return citys;
+
    } catch (er) {
       d.body.querySelector('main').classList.add('off-painel');
       d.body.querySelector('h1').classList.add('off-painel');
@@ -287,7 +283,10 @@ document.addEventListener("click", (e) => {
          cityFind:
          for (let city of citys) {
             if (e.target.id == city.name) {
-               getCityDatos({ lat: city.lat, long: city.long }).then(datos => {
+               getCityDatos({ lat: city.lat, long: city.long }).then(dato => {
+
+                  let datos = unitsChange(dato);
+                  console.log(unitsChange(dato))
                   sessionStorage.setItem('citys', JSON.stringify(datos));
                   sessionStorage.setItem('name', city.name)
                   setPainelFeelsLike(datos, city.name);
@@ -317,10 +316,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
       try {
          let dato = await getCityDatos(cord);
          let name = await getNameCity(cord);
+         let datosProxy = unitsChange(dato);
          if (sessionStorage.getItem('citys') != null) {
             dato = JSON.parse(sessionStorage.getItem('citys'));
             name = sessionStorage.getItem('name');
          }
+         datosProxy.subscribe(setPainelFeelsLike)
          setPainelFeelsLike(dato, name);
          getDailyForecast(dato);
          getSelectHourly(dato);
