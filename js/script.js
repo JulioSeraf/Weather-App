@@ -54,7 +54,7 @@ async function getCityDatos(el) {
          feelsL: json.hourly.apparent_temperature,
          humity: json.hourly.relative_humidity_2m
       }
-      
+
       return citys;
 
    } catch (er) {
@@ -78,11 +78,11 @@ async function latLongProvincias() {
       console.error('ERROR en la petición', err);
    }
 }
-function setPainelFeelsLike(datos, nameCity) {
+function setPainelFeelsLike(datos, objWithExtra) {
    for (let i = 0; i < datos.time.length; i++) {
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
          let date = getDayWeek(datos, todayWeek)[0].name;
-         painelInfo.querySelector("#painel-city").textContent = nameCity;
+         painelInfo.querySelector("#painel-city").textContent = objWithExtra.name;
          painelInfo.querySelector("#painel-week").textContent = fullDate.replace(date.substring(0, 3), date);
          painelInfo.querySelector("img").src = getIconImg(datos.wCod[i]);
          painelInfo.querySelector("#painel-temp").textContent = Math.round(datos.temp[i]) + "º";
@@ -214,10 +214,10 @@ function getSelectHourly(datos) {
    })
    hourlySelect.replaceChildren(fragment);
 }
-function createHourlyForecast(dato, value) {
+function createHourlyForecast(dato, extrasObj) {
    let codPosition = 0;
    getDayWeek(dato, todayWeek).forEach((el) => {
-      if (value == el.id) {
+      if (extrasObj.todayWeek == el.id) {
          el.daysTemp.forEach(t => {
             let pmAm = (codPosition >= 13) ? " PM" : " AM";
             templeteHourly.querySelector('img').src = getIconImg(el.cod
@@ -284,17 +284,20 @@ document.addEventListener("click", (e) => {
          for (let city of citys) {
             if (e.target.id == city.name) {
                getCityDatos({ lat: city.lat, long: city.long }).then(dato => {
-
-                  let datos = unitsChange(dato);
-                  console.log(unitsChange(dato))
-                  sessionStorage.setItem('citys', JSON.stringify(datos));
+                  let objExtras = {
+                     name: city.name,
+                     todayWeek: todayWeek
+                  }
+                  let proxysDatos = unitsChange(dato, { name: city.name, todayWeek: todayWeek });
+                  sessionStorage.setItem('citys', JSON.stringify(dato));
                   sessionStorage.setItem('name', city.name)
-                  setPainelFeelsLike(datos, city.name);
-                  getDailyForecast(datos);
-                  getSelectHourly(datos);
-                  createHourlyForecast(datos, todayWeek);
+                  proxysDatos.subscribe(setPainelFeelsLike);
+                  setPainelFeelsLike(dato,objExtras);
+                  getDailyForecast(dato);
+                  getSelectHourly(dato);
+                  createHourlyForecast(dato,objExtras);
                   hourlySelect.addEventListener('input', (e) => {
-                     createHourlyForecast(datos, e.target.value);
+                     createHourlyForecast(dato, {name:city.name, todayWeek:e.target.value});
                   })
 
                })
@@ -316,18 +319,23 @@ window.addEventListener("DOMContentLoaded", (e) => {
       try {
          let dato = await getCityDatos(cord);
          let name = await getNameCity(cord);
-         let datosProxy = unitsChange(dato);
+         let objExtras = {
+            name: name,
+            todayWeek: todayWeek
+         }
+         let datosProxy = unitsChange(dato, objExtras);
          if (sessionStorage.getItem('citys') != null) {
             dato = JSON.parse(sessionStorage.getItem('citys'));
             name = sessionStorage.getItem('name');
          }
-         datosProxy.subscribe(setPainelFeelsLike)
-         setPainelFeelsLike(dato, name);
+         datosProxy.subscribe(setPainelFeelsLike);
+         setPainelFeelsLike(dato, objExtras);
          getDailyForecast(dato);
          getSelectHourly(dato);
-         createHourlyForecast(dato, todayWeek);
+         createHourlyForecast(dato, objExtras);
+         console.log(todayWeek)
          hourlySelect.addEventListener('input', (e) => {
-            createHourlyForecast(dato, e.target.value);
+            createHourlyForecast(dato, { name: name, todayWeek: e.target.value });
          })
 
       } catch (err) {

@@ -1,4 +1,4 @@
-export function unitsChange(citys,name) {
+export function unitsChange(citys, extrasObj) {
     const navImMe = document.getElementById('nav-imp-met');
     const kmh = document.getElementById('kmh');
     const mph = document.getElementById('mph');
@@ -9,26 +9,30 @@ export function unitsChange(citys,name) {
     const measuresSwitch = document.getElementById('switch-measures');
     const iconCheck = document.createElement('img');
     let listener = [];
-    let proxyCity = new Proxy(citys,{
-        set(target, props, value ){
-           target[props] = value;
+    let proxyCity = new Proxy(citys, {
+        set(target, props, value) {
+            target[props] = value;
             listener.forEach(func => {
-                func(target);
+                func(target, extrasObj);
             })
             return true;
         }
     })
-
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
         }
         elDel.querySelector('img').classList.add('off-check');
     }
+
+    function units(idEl) {
+    }
+    let activo = true;
     navImMe.querySelectorAll('button').forEach(but => {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
                 marckChange(kmh, mph);
+                console.log('ok')
 
             }
             if (e.target.closest('#mph')) {
@@ -71,17 +75,24 @@ export function unitsChange(citys,name) {
             }
             
 
-            if (cels.querySelector('img').classList.contains('off-check')) {
-                console.log('si')
-                proxyCity.temp = citys.temp.map(el => el * 2)
+            if (!kmh.querySelector('img').classList.contains('off-check') && activo) {
+                proxyCity.temp = citys.temp.map(el => el * 2);
+                activo = false;
+            }else if(!mph.querySelector('img').classList.contains('off-check') && !activo){
+                proxyCity.temp = citys.temp.map(el => el - 2);
+                activo = true;
             }
+
+            
+
+
         })
 
     })
-    
+
     return {
         state: proxyCity,
-        subscribe(func){
+        subscribe(func) {
             listener.push(func)
         }
     };
