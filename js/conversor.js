@@ -18,6 +18,7 @@ export function unitsChange(citys, extrasObj) {
             return true;
         }
     })
+    console.log(citys)
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
@@ -75,15 +76,22 @@ export function unitsChange(citys, extrasObj) {
             }
             
 
-            if (!kmh.querySelector('img').classList.contains('off-check') && activo) {
-                proxyCity.temp = citys.temp.map(el => el * 2);
-                activo = false;
-            }else if(!mph.querySelector('img').classList.contains('off-check') && !activo){
-                proxyCity.temp = citys.temp.map(el => el - 2);
+            if (!kmh.querySelector('img').classList.contains('off-check') && !activo) {
+                proxyCity.windS = citys.windS.map(el => el * 1.609 );
                 activo = true;
+            }else if(!mph.querySelector('img').classList.contains('off-check') && activo){
+                proxyCity.windS = citys.windS.map(el => el / 1.609 );
+                activo = false;
             }
 
-            
+            // if (!cels.querySelector('img').classList.contains('off-check') && !activo) {
+            //     proxyCity.temp = citys.temp.map(el => (el - 32) * 5/9);
+            //     activo = true;
+            // }else if(!fah.querySelector('img').classList.contains('off-check') && activo){
+            //     proxyCity.temp = citys.temp.map(el => el * 9/5 + 32 );
+            //     activo = false;
+            // }
+
 
 
         })
