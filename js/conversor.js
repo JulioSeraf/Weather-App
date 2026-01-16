@@ -29,15 +29,18 @@ export function unitsChange(citys, extrasObj) {
     function units(idEl) {
     }
     let activo = true;
+    let FahActivo = true;
     navImMe.querySelectorAll('button').forEach(but => {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
                 marckChange(kmh, mph);
                 console.log('ok')
+               
 
             }
             if (e.target.closest('#mph')) {
                 marckChange(mph, kmh);
+                
             }
             if (e.target.closest('#millimeters')) {
                 marckChange(millim, inches);
@@ -76,21 +79,22 @@ export function unitsChange(citys, extrasObj) {
             }
             
 
-            if (!kmh.querySelector('img').classList.contains('off-check') && !activo) {
+             if (!kmh.querySelector('img').classList.contains('off-check') && !FahActivo) {
                 proxyCity.windS = citys.windS.map(el => el * 1.609 );
-                activo = true;
-            }else if(!mph.querySelector('img').classList.contains('off-check') && activo){
+                FahActivo = true;
+            }
+            if(!mph.querySelector('img').classList.contains('off-check') && FahActivo){
                 proxyCity.windS = citys.windS.map(el => el / 1.609 );
+                FahActivo = false;
+            }
+             
+            if (!cels.querySelector('img').classList.contains('off-check') && !activo) {
+                proxyCity.temp = citys.temp.map(el => (el - 32) * 5/9);
+                activo = true;
+            }else if(!fah.querySelector('img').classList.contains('off-check') && activo){
+                proxyCity.temp = citys.temp.map(el => el * 9/5 + 32 );
                 activo = false;
             }
-
-            // if (!cels.querySelector('img').classList.contains('off-check') && !activo) {
-            //     proxyCity.temp = citys.temp.map(el => (el - 32) * 5/9);
-            //     activo = true;
-            // }else if(!fah.querySelector('img').classList.contains('off-check') && activo){
-            //     proxyCity.temp = citys.temp.map(el => el * 9/5 + 32 );
-            //     activo = false;
-            // }
 
 
 
