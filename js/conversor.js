@@ -28,8 +28,9 @@ export function unitsChange(citys, extrasObj) {
 
     function units(idEl) {
     }
-    let activo = true;
+    let celsActivo = true;
     let FahActivo = true;
+    let inchActivo = true;
     navImMe.querySelectorAll('button').forEach(but => {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
@@ -88,12 +89,20 @@ export function unitsChange(citys, extrasObj) {
                 FahActivo = false;
             }
              
-            if (!cels.querySelector('img').classList.contains('off-check') && !activo) {
+            if (!cels.querySelector('img').classList.contains('off-check') && !celsActivo) {
                 proxyCity.temp = citys.temp.map(el => (el - 32) * 5/9);
-                activo = true;
-            }else if(!fah.querySelector('img').classList.contains('off-check') && activo){
+                celsActivo = true;
+            }else if(!fah.querySelector('img').classList.contains('off-check') && celsActivo){
                 proxyCity.temp = citys.temp.map(el => el * 9/5 + 32 );
-                activo = false;
+                celsActivo = false;
+            }
+             
+            if (!millim.querySelector('img').classList.contains('off-check') && !inchActivo) {
+                proxyCity.prec = citys.prec.map(el => el * 25.4);
+                inchActivo = true;
+            }else if(!inches.querySelector('img').classList.contains('off-check') && inchActivo){
+                proxyCity.prec = citys.prec.map(el => el / 25.4);
+                inchActivo = false;
             }
 
 

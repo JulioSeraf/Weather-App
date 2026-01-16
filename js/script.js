@@ -292,12 +292,13 @@ document.addEventListener("click", (e) => {
                   sessionStorage.setItem('citys', JSON.stringify(dato));
                   sessionStorage.setItem('name', city.name)
                   proxysDatos.subscribe(setPainelFeelsLike);
-                  setPainelFeelsLike(dato,objExtras);
+                  proxysDatos.subscribe(getDailyForecast);
+                  setPainelFeelsLike(dato, objExtras);
                   getDailyForecast(dato);
                   getSelectHourly(dato);
-                  createHourlyForecast(dato,objExtras);
+                  createHourlyForecast(dato, objExtras);
                   hourlySelect.addEventListener('input', (e) => {
-                     createHourlyForecast(dato, {name:city.name, todayWeek:e.target.value});
+                     createHourlyForecast(dato, { name: city.name, todayWeek: e.target.value });
                   })
 
                })
@@ -329,6 +330,9 @@ window.addEventListener("DOMContentLoaded", (e) => {
             name = sessionStorage.getItem('name');
          }
          datosProxy.subscribe(setPainelFeelsLike);
+         datosProxy.subscribe(getDailyForecast);
+         datosProxy.subscribe(createHourlyForecast);
+
          setPainelFeelsLike(dato, objExtras);
          getDailyForecast(dato);
          getSelectHourly(dato);
