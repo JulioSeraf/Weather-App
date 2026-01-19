@@ -7,7 +7,6 @@ export function unitsChange(citys, extrasObj) {
     const cels = document.getElementById('cels');
     const fah = document.getElementById('fah');
     const measuresSwitch = document.getElementById('switch-measures');
-    const iconCheck = document.createElement('img');
     let listener = [];
     let proxyCity = new Proxy(citys, {
         set(target, props, value) {
@@ -18,7 +17,6 @@ export function unitsChange(citys, extrasObj) {
             return true;
         }
     })
-    console.log(citys)
     function marckChange(elAdd, elDel) {
         if (elAdd.querySelector('img').classList.contains('off-check')) {
             elAdd.querySelector('img').classList.remove('off-check');
@@ -26,8 +24,6 @@ export function unitsChange(citys, extrasObj) {
         elDel.querySelector('img').classList.add('off-check');
     }
 
-    function units(idEl) {
-    }
     let celsActivo = true;
     let FahActivo = true;
     let inchActivo = true;
@@ -35,13 +31,10 @@ export function unitsChange(citys, extrasObj) {
         but.addEventListener('click', (e) => {
             if (e.target.closest('#kmh')) {
                 marckChange(kmh, mph);
-                console.log('ok')
-               
 
             }
             if (e.target.closest('#mph')) {
                 marckChange(mph, kmh);
-                
             }
             if (e.target.closest('#millimeters')) {
                 marckChange(millim, inches);
@@ -62,29 +55,26 @@ export function unitsChange(citys, extrasObj) {
                     navImMe.querySelectorAll('img').forEach(el => {
                         if (el.classList.contains('measuresUSA')) {
                             el.classList.add('off-check');
-                        } else {
+                        } else if(!el.classList.contains('measuresUSA')){
                             el.classList.remove('off-check');
                         }
                     })
-                } else {
+                } else if(e.target.dataset.activo == 'true') {
                     e.target.dataset.activo = 'false';
                     navImMe.querySelectorAll('img').forEach(el => {
                         if (el.classList.contains('measuresUSA')) {
                             el.classList.remove('off-check');
-                        } else {
+                        } else if(!el.classList.contains('measuresUSA')) {
                             el.classList.add('off-check');
                         }
-
                     })
                 }
             }
             
-
-             if (!kmh.querySelector('img').classList.contains('off-check') && !FahActivo) {
+            if (!kmh.querySelector('img').classList.contains('off-check') && !FahActivo) {
                 proxyCity.windS = citys.windS.map(el => el * 1.609 );
                 FahActivo = true;
-            }
-            if(!mph.querySelector('img').classList.contains('off-check') && FahActivo){
+            }else if(!mph.querySelector('img').classList.contains('off-check') && FahActivo){
                 proxyCity.windS = citys.windS.map(el => el / 1.609 );
                 FahActivo = false;
             }
@@ -98,15 +88,12 @@ export function unitsChange(citys, extrasObj) {
             }
              
             if (!millim.querySelector('img').classList.contains('off-check') && !inchActivo) {
-                proxyCity.prec = citys.prec.map(el => el * 25.4);
+                proxyCity.prec = citys.prec.map(el => Math.round(el * 25.4));
                 inchActivo = true;
             }else if(!inches.querySelector('img').classList.contains('off-check') && inchActivo){
-                proxyCity.prec = citys.prec.map(el => el / 25.4);
+                proxyCity.prec = citys.prec.map(el => Math.round(el / 25.4));
                 inchActivo = false;
             }
-
-
-
         })
 
     })

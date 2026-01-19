@@ -1,7 +1,5 @@
 import { unitsChange } from "../js/conversor.js";
 const d = document,
-   unitsBut = d.getElementById('units-but'),
-   formSearch = d.getElementById('search'),
    navImMe = d.getElementById('nav-imp-met'),
    templeteCitys = d.getElementById('search-citys').content,
    painelInfo = d.querySelector(".painel-info"),
@@ -19,8 +17,7 @@ const d = document,
    todayHrs = new Date().getHours(),
    todayDay = new Date().getDate(),
    todayWeek = new Date().getDay();
-let fullDate = new Date().toDateString(),
-   measuresGrupo = ["&temperature_unit=fahrenheit", "&precipitation_unit=inch"];
+let fullDate = new Date().toDateString();
 async function getNameCity(el) {
    try {
       let resCity = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${el.lat}&longitude=${el.long}&localityLanguage=es`);
@@ -80,6 +77,7 @@ async function latLongProvincias() {
 }
 function setPainelFeelsLike(datos, objWithExtra) {
    for (let i = 0; i < datos.time.length; i++) {
+
       if (todayHrs == datos.time[i].slice(11, 13) && todayDay == datos.time[i].slice(8, 10)) {
          let date = getDayWeek(datos, todayWeek)[0].name;
          painelInfo.querySelector("#painel-city").textContent = objWithExtra.name;
@@ -288,11 +286,14 @@ document.addEventListener("click", (e) => {
                      name: city.name,
                      todayWeek: todayWeek
                   }
-                  let proxysDatos = unitsChange(dato, { name: city.name, todayWeek: todayWeek });
+                  let proxysDatos = unitsChange(dato,objExtras);
                   sessionStorage.setItem('citys', JSON.stringify(dato));
-                  sessionStorage.setItem('name', city.name)
+                  sessionStorage.setItem('name', city.name);
+
                   proxysDatos.subscribe(setPainelFeelsLike);
                   proxysDatos.subscribe(getDailyForecast);
+                  proxysDatos.subscribe(createHourlyForecast);
+
                   setPainelFeelsLike(dato, objExtras);
                   getDailyForecast(dato);
                   getSelectHourly(dato);
@@ -337,7 +338,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
          getDailyForecast(dato);
          getSelectHourly(dato);
          createHourlyForecast(dato, objExtras);
-         console.log(todayWeek)
          hourlySelect.addEventListener('input', (e) => {
             createHourlyForecast(dato, { name: name, todayWeek: e.target.value });
          })
