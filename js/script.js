@@ -183,21 +183,21 @@ function getDailyForecast(datos) {
 function getIconImg(valor) {
    let imgTemp = "";
    switch (true) {
-      case valor == 0: imgTemp = 'images/icon-sunny.webp';
+      case valor == 0: imgTemp = 'img/icon-sunny.webp';
          break;
-      case valor == 1 || valor == 2: imgTemp = 'images/icon-partly-cloudy.webp';
+      case valor == 1 || valor == 2: imgTemp = 'img/icon-partly-cloudy.webp';
          break;
-      case valor == 3: imgTemp = 'images/icon-overcast.webp';
+      case valor == 3: imgTemp = 'img/icon-overcast.webp';
          break;
-      case valor >= 45 && valor <= 50: imgTemp = 'images/icon-fog.webp';
+      case valor >= 45 && valor <= 50: imgTemp = 'img/icon-fog.webp';
          break;
-      case (valor >= 51 && valor <= 59): imgTemp = 'images/icon-drizzle.webp';
+      case (valor >= 51 && valor <= 59): imgTemp = 'img/icon-drizzle.webp';
          break;
-      case ((valor >= 60 && valor <= 69) || valor >= 80 && valor <= 82): imgTemp = 'images/icon-rain.webp';
+      case ((valor >= 60 && valor <= 69) || valor >= 80 && valor <= 82): imgTemp = 'img/icon-rain.webp';
          break;
-      case (valor >= 70 && valor <= 89): imgTemp = 'images/icon-snow.webp';
+      case (valor >= 70 && valor <= 89): imgTemp = 'img/icon-snow.webp';
          break;
-      case valor >= 90 && valor <= 99: imgTemp = 'images/icon-storm.webp';
+      case valor >= 90 && valor <= 99: imgTemp = 'img/icon-storm.webp';
          break;
       default: imgTemp = "imagen no found!!"
    }
